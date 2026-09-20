@@ -7,8 +7,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: `About Us | ${siteConfig.shortName}`,
-  description:
-    "Learn about the proposed mission, values, and recruitment approach for A1 International Manpower Agency.",
+  description: `Learn about the proposed mission, values, and recruitment approach for ${siteConfig.name}.`,
   alternates: { canonical: "/about" },
 };
 

@@ -1,4 +1,4 @@
-# A1 International Recruitment Website
+# A-One Foreign Employment Agency Website
 
 A production-oriented public website foundation for a Sri Lankan foreign-employment and
 international manpower agency. The current build is intentionally in demo mode: jobs,

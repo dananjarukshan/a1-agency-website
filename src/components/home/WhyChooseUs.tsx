@@ -3,6 +3,7 @@ import {
   Globe, FileStack
 } from "lucide-react";
 import SectionHeading from "@/components/common/SectionHeading";
+import { siteConfig } from "@/config/site";
 
 const features = [
   {
@@ -50,7 +51,7 @@ export default function WhyChooseUs() {
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <SectionHeading
             label="Why Work With Us"
-            title="Why Candidates Choose A1 Agency"
+            title={`Why Candidates Choose ${siteConfig.name}`}
             subtitle="We are committed to ethical, transparent, and professional overseas recruitment for Sri Lankan workers."
             centered
           />

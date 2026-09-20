@@ -6,9 +6,9 @@ export const siteConfig = {
   /** The public build intentionally uses demo jobs and placeholder business details. */
   contentMode: "demo",
   /** Full legal agency name */
-  name: "A1 International Manpower Agency",
+  name: "A-One Foreign Employment Agency",
   /** Short display name */
-  shortName: "A1 Agency",
+  shortName: "A-One Foreign Employment Agency",
   /** One-line tagline */
   tagline: "Your Trusted Path to Global Career Opportunities",
   /** Brief description for SEO meta */

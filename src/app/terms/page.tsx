@@ -4,8 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: `Terms & Conditions | ${siteConfig.shortName}`,
-  description:
-    "Terms and conditions for job applicants and employers using the recruitment services of A1 International Manpower Agency.",
+  description: `Terms and conditions for job applicants and employers using the recruitment services of ${siteConfig.name}.`,
   alternates: { canonical: "/terms" },
 };
 

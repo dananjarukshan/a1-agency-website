@@ -4,8 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: `Privacy Policy | ${siteConfig.shortName}`,
-  description:
-    "Privacy policy and candidate data handling practices for A1 International Manpower Agency.",
+  description: `Privacy policy and candidate data handling practices for ${siteConfig.name}.`,
   alternates: { canonical: "/privacy-policy" },
 };
 

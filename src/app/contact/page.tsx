@@ -7,8 +7,7 @@ import { whatsappUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: `Contact Us | ${siteConfig.shortName}`,
-  description:
-    "Contact the A1 International Manpower Agency team by office visit, phone, email, or WhatsApp once official details are confirmed.",
+  description: `Contact the ${siteConfig.name} team by office visit, phone, email, or WhatsApp once official details are confirmed.`,
   alternates: { canonical: "/contact" },
 };
 

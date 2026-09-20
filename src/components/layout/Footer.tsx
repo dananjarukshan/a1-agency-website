@@ -46,7 +46,11 @@ export default function Footer() {
           {/* Brand column */}
           <div className="xl:col-span-2">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 mb-4 w-fit" aria-label="A1 Agency home">
+            <Link
+              href="/"
+              className="flex items-center gap-3 mb-4 w-fit"
+              aria-label={`${siteConfig.name} home`}
+            >
               <div className="flex items-center justify-center w-10 h-10 bg-white rounded-md">
                 <span className="text-[#0f1f3d] font-bold text-xl leading-none">{siteConfig.brand.logoText}</span>
               </div>
