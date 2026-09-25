@@ -46,7 +46,7 @@ export default function EmployersPage() {
               Recruit Skilled Sri Lankan Talent for Overseas Operations
             </h1>
             <p className="text-slate-300 text-lg leading-relaxed mb-8">
-              A1 Agency is being prepared as a Sri Lankan foreign-employment recruitment platform connecting overseas companies with skilled Sri Lankan talent. Agency credentials and service claims remain subject to client confirmation.
+              {siteConfig.name} is being prepared as a Sri Lankan foreign-employment recruitment platform connecting overseas companies with skilled Sri Lankan talent. Agency credentials and service claims remain subject to client confirmation.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/employers/request-manpower" className="btn btn-teal btn-lg">

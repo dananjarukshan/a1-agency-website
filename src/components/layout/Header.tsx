@@ -40,7 +40,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
-  const phoneConfigured = !siteConfig.phone.includes("X");
+  const phoneConfigured = Boolean(siteConfig.phone);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -71,12 +71,12 @@ export default function Header() {
             <div className="flex items-center gap-4 text-xs">
               {phoneConfigured ? (
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={siteConfig.phoneHref}
                   className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
-                  aria-label={`Call us at ${siteConfig.phone}`}
+                  aria-label={`Call us at ${siteConfig.phoneDisplay}`}
                 >
                   <Phone size={12} />
-                  {siteConfig.phone}
+                  {siteConfig.phoneDisplay}
                 </a>
               ) : (
                 <span className="flex items-center gap-1.5 text-slate-400">

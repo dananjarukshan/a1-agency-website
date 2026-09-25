@@ -36,7 +36,7 @@ const footerLinks = {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const phoneConfigured = !siteConfig.phone.includes("X");
+  const phoneConfigured = Boolean(siteConfig.phone);
 
   return (
     <footer className="bg-[#0a1628] text-white" role="contentinfo">
@@ -46,7 +46,7 @@ export default function Footer() {
           {/* Brand column */}
           <div className="xl:col-span-2">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 mb-4 w-fit" aria-label="A1 Agency home">
+            <Link href="/" className="flex items-center gap-3 mb-4 w-fit" aria-label={`${siteConfig.name} home`}>
               <div className="flex items-center justify-center w-10 h-10 bg-white rounded-md">
                 <span className="text-[#0f1f3d] font-bold text-xl leading-none">{siteConfig.brand.logoText}</span>
               </div>
@@ -106,6 +106,28 @@ export default function Footer() {
               >
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>}
+              {siteConfig.social.tiktok && <a
+                href={siteConfig.social.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 flex items-center justify-center rounded-md bg-[#162447] hover:bg-[#234180] text-slate-400 hover:text-white transition-colors"
+                aria-label="TikTok"
+              >
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2-2.75V9.4a6.33 6.33 0 1 0 5.43 6.27V8.73a8.2 8.2 0 0 0 4.79 1.54V6.84c-.34 0-.67-.05-1-.15Z"/>
+                </svg>
+              </a>}
+              {siteConfig.social.youtube && <a
+                href={siteConfig.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 flex items-center justify-center rounded-md bg-[#162447] hover:bg-[#234180] text-slate-400 hover:text-white transition-colors"
+                aria-label="YouTube"
+              >
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/>
                 </svg>
               </a>}
               <a
@@ -176,11 +198,11 @@ export default function Footer() {
             <address className="not-italic space-y-2.5">
               {phoneConfigured ? (
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={siteConfig.phoneHref}
                   className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-white transition-colors"
                 >
                   <Phone size={13} className="flex-shrink-0 text-teal-400" />
-                  {siteConfig.phone}
+                  {siteConfig.phoneDisplay}
                 </a>
               ) : (
                 <div className="flex items-center gap-2.5 text-sm text-slate-400">
@@ -189,7 +211,7 @@ export default function Footer() {
                 </div>
               )}
               <a
-                href={`mailto:${siteConfig.email}`}
+                href={siteConfig.emailHref}
                 className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-white transition-colors"
               >
                 <Mail size={13} className="flex-shrink-0 text-teal-400" />
@@ -198,8 +220,9 @@ export default function Footer() {
               <div className="flex items-start gap-2.5 text-sm text-slate-400">
                 <MapPin size={13} className="flex-shrink-0 text-teal-400 mt-0.5" />
                 <span>
-                  {siteConfig.address.street}, {siteConfig.address.city},{" "}
-                  {siteConfig.address.country}
+                  {siteConfig.address.line1}<br />
+                  {siteConfig.address.line2}<br />
+                  {siteConfig.address.city}, {siteConfig.address.country}
                 </span>
               </div>
               <div className="flex items-center gap-2.5 text-sm text-slate-400">

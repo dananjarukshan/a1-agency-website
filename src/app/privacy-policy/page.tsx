@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: `Privacy Policy | ${siteConfig.shortName}`,
   description:
-    "Privacy policy and candidate data handling practices for A1 International Manpower Agency.",
+    `Privacy policy and candidate data handling practices for ${siteConfig.name}.`,
   alternates: { canonical: "/privacy-policy" },
 };
 
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
 
           <h3>6. Contact Information</h3>
           <p>
-            If you have questions regarding this Privacy Policy, please contact {siteConfig.legalName} at {siteConfig.address.street}, {siteConfig.address.city}, Sri Lanka.
+            If you have questions regarding this Privacy Policy, please contact {siteConfig.legalName} at {siteConfig.address.line1}, {siteConfig.address.line2}, {siteConfig.address.city}, {siteConfig.address.country}.
           </p>
         </div>
       </div>

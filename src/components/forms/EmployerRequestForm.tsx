@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CheckCircle, AlertCircle, Loader2, Building2 } from "lucide-react";
 import { countries } from "@/data";
+import { siteConfig } from "@/config/site";
 
 const schema = z.object({
   companyName: z.string().min(2, "Company name is required"),
@@ -244,7 +245,7 @@ export default function EmployerRequestForm() {
             className="w-4 h-4 mt-0.5 rounded border-slate-300 text-[#0f1f3d] focus:ring-[#0f1f3d]"
           />
           <span className="text-sm text-slate-700">
-            I confirm that I represent the employer named above and authorize A1 Agency to contact me regarding manpower recruitment services. *
+            I confirm that I represent the employer named above and authorize {siteConfig.shortName} to contact me regarding manpower recruitment services. *
           </span>
         </label>
         {errors.privacyConsent && (

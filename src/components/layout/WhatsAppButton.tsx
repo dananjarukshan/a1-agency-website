@@ -11,7 +11,7 @@ interface WhatsAppButtonProps {
 export default function WhatsAppButton({ message, className = "" }: WhatsAppButtonProps) {
   const defaultMessage =
     message ??
-    "Hello, I would like to enquire about overseas employment opportunities at A1 Agency.";
+    `Hello, I would like to enquire about overseas employment opportunities at ${siteConfig.shortName}.`;
 
   return (
     <a

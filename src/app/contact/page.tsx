@@ -8,12 +8,12 @@ import { whatsappUrl } from "@/lib/utils";
 export const metadata: Metadata = {
   title: `Contact Us | ${siteConfig.shortName}`,
   description:
-    "Contact the A1 International Manpower Agency team by office visit, phone, email, or WhatsApp once official details are confirmed.",
+    `Contact ${siteConfig.name} by office visit, phone, or email.`,
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
-  const phoneConfigured = !siteConfig.phone.includes("X");
+  const phoneConfigured = Boolean(siteConfig.phone);
 
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
@@ -54,7 +54,9 @@ export default function ContactPage() {
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Main Office Address</p>
                   <p className="font-semibold text-[#0f1f3d] leading-snug">
-                    {siteConfig.address.street}, {siteConfig.address.city}, {siteConfig.address.province}, {siteConfig.address.country}
+                    {siteConfig.address.line1}<br />
+                    {siteConfig.address.line2}<br />
+                    {siteConfig.address.city}, {siteConfig.address.country}
                   </p>
                 </div>
               </div>
@@ -66,8 +68,8 @@ export default function ContactPage() {
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Telephone & Mobile</p>
                   {phoneConfigured ? (
-                    <a href={`tel:${siteConfig.phone}`} className="font-semibold text-[#0f1f3d] hover:text-blue-700 block">
-                      {siteConfig.phone}
+                    <a href={siteConfig.phoneHref} className="font-semibold text-[#0f1f3d] hover:text-blue-700 block">
+                      {siteConfig.phoneDisplay}
                     </a>
                   ) : (
                     <p className="font-semibold text-slate-500">Official number to be provided</p>
@@ -81,14 +83,18 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">WhatsApp Inquiry</p>
-                  <a
-                    href={whatsappUrl(siteConfig.whatsapp)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-teal-700 hover:underline block"
-                  >
-                    {siteConfig.whatsappDisplay} (Chat Now)
-                  </a>
+                  {siteConfig.whatsapp ? (
+                    <a
+                      href={whatsappUrl(siteConfig.whatsapp)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-teal-700 hover:underline block"
+                    >
+                      {siteConfig.whatsappDisplay} (Chat Now)
+                    </a>
+                  ) : (
+                    <p className="font-semibold text-slate-500">Official number to be provided</p>
+                  )}
                 </div>
               </div>
 
@@ -98,7 +104,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Email Support</p>
-                  <a href={`mailto:${siteConfig.email}`} className="font-semibold text-[#0f1f3d] hover:text-blue-700 block">
+                  <a href={siteConfig.emailHref} className="font-semibold text-[#0f1f3d] hover:text-blue-700 block">
                     {siteConfig.email}
                   </a>
                   <a href={`mailto:${siteConfig.emailEmployers}`} className="text-xs text-slate-500 hover:underline block mt-0.5">
