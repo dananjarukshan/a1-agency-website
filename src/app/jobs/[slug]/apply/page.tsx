@@ -33,7 +33,7 @@ export default async function JobApplyPage({ params }: Props) {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
       {/* Header */}
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-8">
           <Breadcrumbs
             items={[

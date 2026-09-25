@@ -221,7 +221,7 @@ export default function JobsPageClient() {
                       onClick={() => setFilters((f) => ({ ...f, page: i + 1 }))}
                       className={`w-9 h-9 rounded-md text-sm font-medium transition-colors ${
                         page === i + 1
-                          ? "bg-[#0f1f3d] text-white"
+                          ? "bg-brand-black text-white"
                           : "border border-slate-200 text-slate-600 hover:border-[#0f1f3d]"
                       }`}
                       aria-label={`Go to page ${i + 1}`}

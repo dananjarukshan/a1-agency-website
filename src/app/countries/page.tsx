@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function CountriesPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-8">
           <Breadcrumbs items={[{ label: "Countries" }]} className="text-slate-400 mb-3" />
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">

@@ -56,7 +56,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="section-padding bg-[#0f1f3d]" aria-labelledby="how-it-works-heading">
+    <section className="section-padding bg-brand-black" aria-labelledby="how-it-works-heading">
       <div className="container-padded">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 mb-3">
@@ -95,7 +95,7 @@ export default function HowItWorks() {
                     <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
                       <Icon size={20} className="text-teal-400" aria-hidden="true" />
                     </div>
-                    <div className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[#0f1f3d] border border-teal-400 flex items-center justify-center">
+                    <div className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-brand-black border border-teal-400 flex items-center justify-center">
                       <span className="text-teal-400 text-[9px] font-bold">{idx + 1}</span>
                     </div>
                   </div>

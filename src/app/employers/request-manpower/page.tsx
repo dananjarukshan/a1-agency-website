@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RequestManpowerPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-8">
           <Breadcrumbs
             items={[

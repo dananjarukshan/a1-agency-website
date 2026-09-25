@@ -17,7 +17,7 @@ export default function FAQPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-12">
           <Breadcrumbs items={[{ label: "FAQ" }]} className="text-slate-400 mb-3" />
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">

@@ -32,7 +32,7 @@ export default function HeroSection() {
   return (
     <>
       <section
-        className="relative isolate overflow-hidden bg-[#07172c]"
+        className="relative isolate overflow-hidden bg-brand-black"
         aria-labelledby="home-hero-heading"
       >
         <video
@@ -47,11 +47,11 @@ export default function HeroSection() {
           <source src="/videos/homepage-hero-loop.mp4" type="video/mp4" />
         </video>
         <div
-          className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,#07172c_0%,rgba(7,23,44,0.97)_38%,rgba(7,23,44,0.72)_62%,rgba(7,23,44,0.2)_100%)]"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,#000000_0%,rgba(0,0,0,0.97)_38%,rgba(0,0,0,0.72)_62%,rgba(0,0,0,0.2)_100%)]"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(7,23,44,0.78),transparent_46%)] lg:hidden"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(0,0,0,0.78),transparent_46%)] lg:hidden"
           aria-hidden="true"
         />
 
@@ -80,7 +80,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/contact"
-                className="btn btn-lg border-white/35 bg-white/10 text-white hover:border-white hover:bg-white hover:text-[#07172c]"
+                className="btn btn-lg border-white/35 bg-white/10 text-white hover:border-white hover:bg-white hover:text-brand-black"
               >
                 <MessageCircle size={17} aria-hidden="true" />
                 Talk to our team

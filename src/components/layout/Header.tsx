@@ -63,7 +63,7 @@ export default function Header() {
         role="banner"
       >
         {/* Top bar */}
-        <div className="hidden md:block bg-[#0f1f3d] text-white">
+        <div className="hidden md:block bg-brand-black text-white">
           <div className="container-padded flex items-center justify-between py-1.5">
             <div className="flex items-center gap-4 text-xs text-slate-300">
               <span>{siteConfig.credentialStatusLabel}</span>
@@ -106,10 +106,10 @@ export default function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md"
+              className="flex items-center gap-3 rounded-md"
               aria-label={`${siteConfig.name} – Home`}
             >
-              <div className="flex items-center justify-center w-9 h-9 bg-[#0f1f3d] rounded-md">
+              <div className="flex items-center justify-center w-9 h-9 bg-brand-black rounded-md">
                 <span className="text-white font-bold text-lg leading-none">{siteConfig.brand.logoText}</span>
               </div>
               <div className="hidden sm:block">
@@ -144,7 +144,7 @@ export default function Header() {
                       className={cn(
                         "flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-colors",
                         isActive(item.href)
-                          ? "text-[#0f1f3d] bg-slate-100"
+                          ? "nav-link-active text-[#0f1f3d] bg-slate-100"
                           : "text-slate-700 hover:text-[#0f1f3d] hover:bg-slate-50"
                       )}
                       aria-expanded={openDropdown === item.label}
@@ -182,7 +182,7 @@ export default function Header() {
                     className={cn(
                       "px-3.5 py-2 text-sm font-medium rounded-md transition-colors",
                       isActive(item.href)
-                        ? "text-[#0f1f3d] bg-slate-100"
+                        ? "nav-link-active text-[#0f1f3d] bg-slate-100"
                         : "text-slate-700 hover:text-[#0f1f3d] hover:bg-slate-50"
                     )}
                   >
@@ -235,7 +235,7 @@ export default function Header() {
                     className={cn(
                       "block px-3 py-2.5 text-sm font-medium rounded-md transition-colors",
                       isActive(item.href)
-                        ? "text-[#0f1f3d] bg-slate-100"
+                        ? "nav-link-active text-[#0f1f3d] bg-slate-100"
                         : "text-slate-700 hover:bg-slate-50"
                     )}
                   >

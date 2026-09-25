@@ -27,7 +27,7 @@ export default function HowItWorksPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-12">
           <Breadcrumbs items={[{ label: "How It Works" }]} className="text-slate-400 mb-3" />
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
@@ -44,7 +44,7 @@ export default function HowItWorksPage() {
         <div className="max-w-4xl mx-auto space-y-6 mb-16">
           {steps.map((step) => (
             <div key={step.num} className="bg-white rounded-xl p-6 border border-slate-200 flex gap-5 items-start">
-              <div className="w-12 h-12 rounded-lg bg-[#0f1f3d] text-teal-400 font-bold text-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-lg bg-brand-black text-teal-400 font-bold text-lg flex items-center justify-center flex-shrink-0">
                 {step.num}
               </div>
               <div>

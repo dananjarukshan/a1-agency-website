@@ -324,7 +324,7 @@ export default function JobFilters({
           <SlidersHorizontal size={15} />
           Filters
           {hasActiveFilters && (
-            <span className="ml-1 w-5 h-5 rounded-full bg-[#0f1f3d] text-white text-xs flex items-center justify-center">
+            <span className="ml-1 w-5 h-5 rounded-full bg-brand-black text-white text-xs flex items-center justify-center">
               !
             </span>
           )}

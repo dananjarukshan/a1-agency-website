@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function JobCategoriesPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-8">
           <Breadcrumbs items={[{ label: "Job Categories" }]} className="text-slate-400 mb-3" />
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -42,7 +42,7 @@ export default function JobCategoriesPage() {
               className="bg-white rounded-xl border border-slate-200 p-6 flex flex-col hover:border-[#0f1f3d] hover:shadow-md transition-all duration-200"
             >
               <div className="flex items-center justify-between gap-3 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-[#0f1f3d] text-teal-400 flex items-center justify-center font-bold text-xl">
+                <div className="w-12 h-12 rounded-lg bg-brand-black text-teal-400 flex items-center justify-center font-bold text-xl">
                   {cat.name.charAt(0)}
                 </div>
                 <span className="badge badge-new">{categoryJobs.length} Sample Jobs</span>

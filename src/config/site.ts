@@ -5,10 +5,10 @@
 export const siteConfig = {
   /** The public build intentionally uses demo jobs and placeholder business details. */
   contentMode: "demo",
-  /** Full legal agency name */
-  name: "A1 International Manpower Agency",
+  /** Confirmed public agency name */
+  name: "A-One Foreign Employment Agency",
   /** Short display name */
-  shortName: "A1 Agency",
+  shortName: "A-One Agency",
   /** One-line tagline */
   tagline: "Your Trusted Path to Global Career Opportunities",
   /** Brief description for SEO meta */
@@ -26,23 +26,26 @@ export const siteConfig = {
   },
 
   // ─── Contact Details ──────────────────────────────────────────────────────
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "+94 XX XXX XXXX", // Replace with actual phone
+  phone: process.env.NEXT_PUBLIC_PHONE ?? "+94 76 155 0550",
+  phoneDisplay: process.env.NEXT_PUBLIC_PHONE_DISPLAY || "+94 76 155 0550",
+  phoneHref: process.env.NEXT_PUBLIC_PHONE_HREF ?? "tel:+94761550550",
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "", // Digits only
   whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY ?? "+94 XX XXX XXXX",
-  email: process.env.NEXT_PUBLIC_EMAIL ?? "agency-email@example.com", // Placeholder domain
+  email: process.env.NEXT_PUBLIC_EMAIL ?? "aonefea3785@gmail.com",
   emailRecruitment:
-    process.env.NEXT_PUBLIC_RECRUITMENT_EMAIL ?? "recruitment@example.com",
+    process.env.NEXT_PUBLIC_RECRUITMENT_EMAIL ?? "aonefea3785@gmail.com",
   emailEmployers:
-    process.env.NEXT_PUBLIC_EMPLOYER_EMAIL ?? "employers@example.com",
+    process.env.NEXT_PUBLIC_EMPLOYER_EMAIL ?? "aonefea3785@gmail.com",
 
   // ─── Office ───────────────────────────────────────────────────────────────
   address: {
-    street: "[Street Address]", // Replace with actual address
-    city: "[City]",
-    province: "[Province]",
-    postalCode: "[Postal Code]",
+    street: "No.31, 2nd floor, Sirimavo Bandaranayaka Mawatha",
+    city: "Kandy",
+    province: "",
+    postalCode: "",
     country: "Sri Lanka",
   },
+  mapUrl: "https://maps.app.goo.gl/fSjhdh7zNrPPF2Yq5",
   officeHours: "Monday – Friday: 8:30 AM – 5:30 PM | Saturday: 9:00 AM – 1:00 PM",
 
   // ─── Licensing ────────────────────────────────────────────────────────────
@@ -53,9 +56,21 @@ export const siteConfig = {
 
   // ─── Social Media ─────────────────────────────────────────────────────────
   social: {
-    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "",
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
-    linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "",
+    facebook:
+      process.env.NEXT_PUBLIC_FACEBOOK_URL ??
+      "https://www.facebook.com/share/1BykCQvv6U/",
+    instagram:
+      process.env.NEXT_PUBLIC_INSTAGRAM_URL ??
+      "https://www.instagram.com/a_one_employment_agency?utm_source=qr&stkn=MXRnZHRkeWtlYnluNg==",
+    tiktok:
+      process.env.NEXT_PUBLIC_TIKTOK_URL ??
+      "https://www.tiktok.com/@a.one.agency?_r=1&_t=ZS-99v29F9qh4X",
+    youtube:
+      process.env.NEXT_PUBLIC_YOUTUBE_URL ??
+      "https://youtube.com/@aoneforeignemploymentagency?si=OoWx7V0GwA5_G5x2",
+    linkedin:
+      process.env.NEXT_PUBLIC_LINKEDIN_URL ??
+      "https://www.linkedin.com/company/a-one-foreign-employment-agency/",
   },
 
   // ─── Legal ────────────────────────────────────────────────────────────────

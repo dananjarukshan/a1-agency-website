@@ -64,7 +64,7 @@ export default function WhyChooseUs() {
                 key={feature.title}
                 className="bg-white rounded-xl p-6 border border-slate-200 hover:border-[#0f1f3d]/20 hover:shadow-md transition-all duration-200"
               >
-                <div className="w-11 h-11 rounded-lg bg-[#0f1f3d] flex items-center justify-center mb-4">
+                <div className="w-11 h-11 rounded-lg bg-brand-black flex items-center justify-center mb-4">
                   <Icon size={20} className="text-teal-400" aria-hidden="true" />
                 </div>
                 <h3 className="font-bold text-[#0f1f3d] mb-2">{feature.title}</h3>
