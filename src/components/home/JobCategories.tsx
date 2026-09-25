@@ -40,7 +40,7 @@ export default function JobCategories() {
               <Link
                 key={cat.slug}
                 href={`/job-categories/${cat.slug}`}
-                className="group flex flex-col items-center p-4 rounded-xl border border-slate-200 hover:border-[#0f1f3d] hover:bg-[#0f1f3d] hover:text-white transition-all duration-200 text-center"
+                className="group flex flex-col items-center p-4 rounded-xl border border-slate-200 hover:border-[#0f1f3d] hover:bg-brand-black hover:text-white transition-all duration-200 text-center"
                 aria-label={`${cat.name} jobs – ${jobCount} sample vacancies`}
               >
                 <div className="w-11 h-11 rounded-lg bg-slate-100 group-hover:bg-white/20 flex items-center justify-center mb-3 transition-colors">

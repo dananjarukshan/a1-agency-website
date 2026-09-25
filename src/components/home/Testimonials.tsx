@@ -45,7 +45,7 @@ export default function Testimonials() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#0f1f3d] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-brand-black flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                     {t.name.charAt(0)}
                   </div>
                   <div>

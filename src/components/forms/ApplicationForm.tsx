@@ -179,7 +179,7 @@ export default function ApplicationForm({ job }: ApplicationFormProps) {
         build does not send or store applicant data.
       </div>
       {/* Selected job */}
-      <div className="bg-[#0f1f3d] text-white rounded-xl p-5 flex items-start gap-4">
+      <div className="bg-brand-black text-white rounded-xl p-5 flex items-start gap-4">
         <div className="text-3xl" aria-hidden="true">{job.countryFlag}</div>
         <div>
           <p className="text-xs text-slate-400 mb-0.5">Applying for</p>

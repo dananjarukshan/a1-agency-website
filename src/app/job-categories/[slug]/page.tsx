@@ -36,7 +36,7 @@ export default async function CategoryDetailPage({ params }: Props) {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-10">
           <Breadcrumbs
             items={[

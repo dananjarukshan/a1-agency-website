@@ -1,0 +1,322 @@
+.footer {
+  position: relative;
+  isolation: isolate;
+  padding-top: 3.5rem;
+  background: #fff;
+  color: #e9e2cf;
+}
+
+/* The contact panel straddles the light page and the dark footer. */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 10.5rem 0 0;
+  background:
+    linear-gradient(135deg, transparent 0 16%, rgb(0 0 0 / 0.09) 16% 31%, transparent 31% 76%, rgb(244 195 0 / 0.025) 76%),
+    linear-gradient(115deg, #302914, #282312 58%, #211e12);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+}
+
+.footer a {
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.footer a:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 5px;
+  box-shadow: none;
+}
+
+.contactBanner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  min-height: 15rem;
+  padding: 3rem;
+  background: #50431f url("/images/footer-world-map.svg") center / cover no-repeat;
+  border: 1px solid rgb(244 195 0 / 0.12);
+}
+
+.bannerCopy {
+  min-width: 0;
+}
+
+.bannerCopy h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.5rem, 2.3vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.bannerCopy h2 strong {
+  font-weight: 700;
+}
+
+.bannerCopy p {
+  margin-top: 1.1rem;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.bannerCopy a:hover {
+  color: var(--color-brand-gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  min-height: 3.5rem;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid var(--color-brand-gold);
+  color: var(--color-brand-gold);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.contactButton:hover {
+  background: var(--color-brand-gold);
+  color: #211e12;
+}
+
+.brand {
+  padding: 3.5rem 0 2.5rem;
+  text-align: center;
+}
+
+.logoLink {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.logo {
+  display: block;
+  width: 320px;
+  max-width: 100%;
+  height: auto;
+  /* Preserve the official white/gold artwork, blending out its black plate. */
+  mix-blend-mode: screen;
+}
+
+.description {
+  max-width: 43rem;
+  margin: 1.25rem auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--color-brand-gold);
+}
+
+.socials a:hover {
+  color: #ffe578;
+  background: rgb(244 195 0 / 0.1);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.55fr);
+  gap: 2rem;
+  padding: 3rem 0;
+  border-block: 1px solid rgb(244 195 0 / 0.15);
+}
+
+.columns h3 {
+  margin: 0 0 1.4rem;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.linkGroup ul {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.linkGroup a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  min-height: 2.25rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.linkGroup svg,
+.contactRow svg,
+.mapLink svg {
+  flex-shrink: 0;
+  color: var(--color-brand-gold);
+}
+
+.linkGroup a:hover,
+a.contactRow:hover,
+.legalLinks a:hover {
+  color: var(--color-brand-gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact address {
+  display: grid;
+  gap: 0.875rem;
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.agencyName {
+  color: #fff;
+  font-weight: 600;
+}
+
+.contactRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.contactRow svg {
+  margin-top: 0.2rem;
+}
+
+.contactRow span {
+  min-width: 0;
+}
+
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin-top: 0.75rem;
+  color: var(--color-brand-gold);
+  font-size: 0.8125rem;
+}
+
+.mapLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+
+.credentials {
+  margin-top: 0.25rem;
+  color: #c5bfae;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.legalLinks a {
+  padding-block: 0.5rem;
+}
+
+@media (max-width: 1099px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+
+  .contactBanner {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer {
+    padding-top: 2rem;
+  }
+
+  .footer::before {
+    top: 8rem;
+  }
+
+  .contactBanner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .contactButton {
+    justify-self: start;
+  }
+
+  .brand {
+    padding: 2.75rem 0 2rem;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  .columns h3 {
+    margin-bottom: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 260px;
+  }
+}

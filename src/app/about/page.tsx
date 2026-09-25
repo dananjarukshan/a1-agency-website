@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
       {/* Header */}
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-12">
           <Breadcrumbs items={[{ label: "About Us" }]} className="text-slate-400 mb-3" />
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
@@ -33,7 +33,7 @@ export default function AboutPage() {
         {/* Mission / Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
-            <div className="w-12 h-12 rounded-lg bg-[#0f1f3d] text-teal-400 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-lg bg-brand-black text-teal-400 flex items-center justify-center mb-4">
               <Award size={24} />
             </div>
             <h2 className="text-xl font-bold text-[#0f1f3d] mb-3">Our Mission</h2>
@@ -43,7 +43,7 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
-            <div className="w-12 h-12 rounded-lg bg-[#0f1f3d] text-teal-400 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-lg bg-brand-black text-teal-400 flex items-center justify-center mb-4">
               <ShieldCheck size={24} />
             </div>
             <h2 className="text-xl font-bold text-[#0f1f3d] mb-3">Our Vision</h2>

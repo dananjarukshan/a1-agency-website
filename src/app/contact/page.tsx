@@ -17,7 +17,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-[#0f1f3d]">
+      <div className="bg-brand-black">
         <div className="container-padded py-12">
           <Breadcrumbs items={[{ label: "Contact Us" }]} className="text-slate-400 mb-3" />
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
@@ -54,7 +54,7 @@ export default function ContactPage() {
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Main Office Address</p>
                   <p className="font-semibold text-[#0f1f3d] leading-snug">
-                    {siteConfig.address.street}, {siteConfig.address.city}, {siteConfig.address.province}, {siteConfig.address.country}
+                    {[siteConfig.address.street, siteConfig.address.city, siteConfig.address.province, siteConfig.address.country].filter(Boolean).join(", ")}
                   </p>
                 </div>
               </div>

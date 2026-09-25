@@ -6,7 +6,7 @@ import { whatsappUrl } from "@/lib/utils";
 export default function ContactCTA() {
   return (
     <section
-      className="section-padding bg-gradient-to-br from-[#0f1f3d] via-[#162447] to-[#0f1f3d]"
+      className="section-padding bg-gradient-to-br from-brand-black via-[#151515] to-brand-black"
       aria-labelledby="contact-cta-heading"
     >
       <div className="container-padded text-center">
@@ -47,7 +47,7 @@ export default function ContactCTA() {
           </a>
           <Link
             href="/contact"
-            className="btn btn-secondary btn-lg border-white/30 text-white hover:bg-white hover:text-[#0f1f3d]"
+            className="btn btn-secondary btn-lg border-white/30 text-white hover:bg-white hover:text-brand-black"
             aria-label="Go to the contact page"
           >
             <Phone size={18} aria-hidden="true" />

@@ -148,7 +148,7 @@ export default function JobCard({ job, variant = "default", className }: JobCard
         {!isClosed && (
           <Link
             href={`/jobs/${job.slug}/apply`}
-            className="flex-1 btn btn-primary btn-sm justify-center text-center group-hover:bg-[#162447] transition-colors"
+            className="flex-1 btn btn-primary btn-sm justify-center text-center"
             aria-label={`Apply for ${job.title}`}
           >
             Apply Now

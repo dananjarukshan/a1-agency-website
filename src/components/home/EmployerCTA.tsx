@@ -15,7 +15,7 @@ export default function EmployerCTA() {
       aria-labelledby="employer-cta-heading"
     >
       <div className="container-padded">
-        <div className="rounded-2xl bg-[#0f1f3d] overflow-hidden">
+        <div className="rounded-2xl bg-brand-black overflow-hidden">
           <div className="grid lg:grid-cols-2 gap-0">
             {/* Content */}
             <div className="p-10 lg:p-14">
@@ -64,7 +64,7 @@ export default function EmployerCTA() {
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-[38%_center]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07172c] via-[#07172c]/35 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-black/35 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
                 <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-white">
                   Industries we support
@@ -73,7 +73,7 @@ export default function EmployerCTA() {
                   {industries.slice(0, 8).map((industry) => (
                     <span
                       key={industry}
-                      className="rounded-full border border-white/20 bg-[#07172c]/75 px-3 py-1.5 text-xs font-medium text-slate-100 backdrop-blur-sm"
+                      className="rounded-full border border-white/20 bg-brand-black/75 px-3 py-1.5 text-xs font-medium text-slate-100 backdrop-blur-sm"
                     >
                       {industry}
                     </span>

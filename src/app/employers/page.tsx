@@ -34,7 +34,7 @@ export default function EmployersPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-16">
       {/* Hero */}
-      <div className="bg-[#0f1f3d] text-white">
+      <div className="bg-brand-black text-white">
         <div className="container-padded py-14">
           <Breadcrumbs items={[{ label: "For Employers" }]} className="text-slate-400 mb-4" />
           <div className="max-w-3xl">
@@ -78,7 +78,7 @@ export default function EmployersPage() {
             { icon: FileCheck, title: "Compliance-Ready Workflow", desc: "The recruitment workflow is designed to accommodate the official documents and regulatory checks applicable to each confirmed engagement." },
           ].map((item, i) => (
             <div key={i} className="bg-white rounded-xl p-6 border border-slate-200">
-              <div className="w-12 h-12 rounded-lg bg-[#0f1f3d] flex items-center justify-center text-teal-400 mb-4">
+              <div className="w-12 h-12 rounded-lg bg-brand-black flex items-center justify-center text-teal-400 mb-4">
                 <item.icon size={22} />
               </div>
               <h3 className="text-lg font-bold text-[#0f1f3d] mb-2">{item.title}</h3>
@@ -129,7 +129,7 @@ export default function EmployersPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-14 bg-[#0f1f3d] text-white rounded-2xl p-8 lg:p-12 text-center max-w-4xl mx-auto">
+        <div className="mt-14 bg-brand-black text-white rounded-2xl p-8 lg:p-12 text-center max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Start Recruiting?</h2>
           <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8">
             Submit your manpower requirement today and our international business team will get back to you with qualified candidate profiles.
