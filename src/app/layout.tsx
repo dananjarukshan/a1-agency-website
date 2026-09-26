@@ -78,7 +78,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="flex-1 pt-16 md:pt-[100px]" tabIndex={-1}>
+        <main id="main-content" className="flex-1 scroll-mt-20 xl:scroll-mt-28" tabIndex={-1}>
           {children}
         </main>
         <Footer />

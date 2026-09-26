@@ -1,0 +1,423 @@
+.header {
+  --header-height: 72px;
+  --info-height: 42px;
+  --header-muted: color-mix(in srgb, var(--color-brand-black) 65%, var(--color-brand-white));
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  flex-shrink: 0;
+  color: var(--color-brand-black);
+  background: var(--color-brand-white);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.08), 0 6px 20px rgb(0 0 0 / 0.04);
+}
+
+.header :is(a, button):focus-visible {
+  outline: 2px solid var(--color-brand-black);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--color-brand-gold);
+}
+
+.header button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topBar,
+.desktopNav,
+.ctaPanel {
+  display: none;
+}
+
+.mainRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  gap: 1rem;
+  padding-inline: clamp(1.25rem, 3vw, 3.5rem);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-black);
+  color: var(--color-brand-white);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.brandCopy {
+  display: grid;
+  gap: 0.25rem;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.brandName {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.brandTagline {
+  color: var(--header-muted);
+  font-size: 0.6875rem;
+}
+
+.mobileToggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid rgb(0 0 0 / 0.12);
+  border-radius: var(--radius-sm);
+  background: transparent;
+}
+
+.mobileToggle:hover,
+.mobileToggle[aria-expanded="true"] {
+  background: var(--color-brand-gold);
+  border-color: var(--color-brand-gold);
+}
+
+.mobileMenu {
+  position: absolute;
+  inset: 100% 0 auto;
+  max-height: calc(100vh - var(--header-height));
+  max-height: calc(100dvh - var(--header-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1rem clamp(1.25rem, 3vw, 3.5rem) max(1.5rem, env(safe-area-inset-bottom));
+  border-top: 1px solid rgb(0 0 0 / 0.08);
+  background: var(--color-brand-white);
+  box-shadow: 0 16px 24px rgb(0 0 0 / 0.12);
+}
+
+.mobileMenu[hidden],
+.mobileSubmenu[hidden],
+.dropdownPanel[hidden] {
+  display: none;
+}
+
+.mobileNavList {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.mobileLink:hover,
+.mobileLink[data-active="true"],
+.mobileSubmenu a:hover,
+.mobileSubmenu a[aria-current] {
+  background: color-mix(in srgb, var(--color-brand-gold) 14%, var(--color-brand-white));
+  box-shadow: inset 3px 0 var(--color-brand-gold);
+}
+
+.chevron {
+  flex-shrink: 0;
+  transition: transform 160ms ease;
+}
+
+[aria-expanded="true"] > .chevron {
+  transform: rotate(180deg);
+}
+
+.header .mobileSubmenu {
+  margin: 0.25rem 0 0.75rem 0.75rem;
+  border-left: 1px solid var(--color-brand-gold);
+  padding-left: 0.5rem;
+}
+
+.mobileSubmenu a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.mobileSubmenu svg {
+  flex-shrink: 0;
+}
+
+.mobileCta {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.mobileCta p {
+  color: var(--header-muted);
+  font-size: 0.8125rem;
+}
+
+.mobileCta a {
+  justify-content: center;
+  min-height: 48px;
+}
+
+@media (min-width: 1280px) {
+  .header {
+    --header-height: 104px;
+    /* The strip scrolls out naturally; the navigation remains at the top. */
+    top: calc(-1 * var(--info-height));
+  }
+
+  .header:has(.topBar:focus-within) {
+    top: 0;
+  }
+
+  .topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    height: var(--info-height);
+    padding-inline: clamp(1.5rem, 3vw, 3.5rem);
+    background: var(--color-brand-black);
+    color: color-mix(in srgb, var(--color-brand-white) 82%, transparent);
+  }
+
+  .topBar a:focus-visible {
+    outline-color: var(--color-brand-gold);
+    box-shadow: none;
+  }
+
+  .contactDetails {
+    display: flex;
+    align-items: center;
+  }
+
+  .contactDetails a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 28px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .contactDetails a + a {
+    margin-left: 1.25rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid rgb(255 255 255 / 0.2);
+  }
+
+  .contactDetails svg {
+    color: var(--color-brand-gold);
+  }
+
+  .topBar a:hover {
+    color: var(--color-brand-gold);
+  }
+
+  .socialLinks {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .socialLinks a {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    color: var(--color-brand-gold);
+  }
+
+  .socialLinks a:hover {
+    color: var(--color-brand-white);
+  }
+
+  .mainRow {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr) clamp(230px, 18vw, 340px);
+    gap: clamp(1rem, 1.7vw, 2.5rem);
+    padding-right: 0;
+  }
+
+  .desktopNav {
+    display: block;
+    min-width: 0;
+  }
+
+  .navList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0px, 0.35vw, 8px);
+  }
+
+  .navLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0.625rem 0.4375rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-brand-black);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+    transition: box-shadow 160ms ease;
+  }
+
+  .navLink:hover,
+  .navLink[data-active="true"],
+  .navLink[aria-expanded="true"] {
+    box-shadow: inset 0 -2px var(--color-brand-gold);
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdownPanel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 270px;
+    padding-top: 0.75rem;
+  }
+
+  .dropdownPanel ul {
+    padding: 0.5rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-top: 3px solid var(--color-brand-gold);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    background: var(--color-brand-white);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.13);
+  }
+
+  .dropdownPanel a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 48px;
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .dropdownPanel svg {
+    flex-shrink: 0;
+  }
+
+  .dropdownPanel a:hover,
+  .dropdownPanel a[aria-current] {
+    background: color-mix(in srgb, var(--color-brand-gold) 16%, var(--color-brand-white));
+  }
+
+  .ctaPanel {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 1rem 1.5rem;
+    background: var(--color-brand-gold);
+    color: var(--color-brand-black);
+    transition: background-color 160ms ease;
+  }
+
+  .ctaPanel:hover {
+    background: color-mix(in srgb, var(--color-brand-gold) 85%, var(--color-brand-white));
+  }
+
+  .header .ctaPanel:focus-visible {
+    outline-offset: -5px;
+    box-shadow: none;
+  }
+
+  .ctaSupport {
+    max-width: 14rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .ctaLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .ctaLabel svg {
+    flex-shrink: 0;
+  }
+
+  .mobileToggle,
+  .mobileMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .navLink {
+    font-size: 0.875rem;
+    padding-inline: 0.625rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .header {
+    --header-height: 112px;
+  }
+
+  .mainRow {
+    gap: 2.5rem;
+  }
+
+  .ctaPanel {
+    padding-inline: 2rem;
+  }
+
+  .ctaLabel {
+    font-size: 1.125rem;
+  }
+}
