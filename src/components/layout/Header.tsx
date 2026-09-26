@@ -1,286 +1,268 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  Phone,
-  ChevronDown,
-  Briefcase,
-  Globe,
-  Building2,
-} from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, ChevronDown, Globe, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { cn, whatsappUrl } from "@/lib/utils";
+import HeaderSocialLinks from "./HeaderSocialLinks";
+import styles from "./Header.module.css";
+
+const opportunityLinks = [
+  { label: "Browse by Country", href: "/countries", icon: Globe },
+  { label: "Browse by Job Category", href: "/job-categories", icon: BriefcaseBusiness },
+] as const;
 
 const navigation = [
   { label: "Home", href: "/" },
-  {
-    label: "Jobs",
-    href: "/jobs",
-    children: [
-      { label: "Browse All Jobs", href: "/jobs", icon: Briefcase },
-      { label: "Browse by Country", href: "/countries", icon: Globe },
-      { label: "Browse by Category", href: "/job-categories", icon: Building2 },
-    ],
-  },
-  { label: "Countries", href: "/countries" },
-  { label: "Job Categories", href: "/job-categories" },
+  { label: "For Employers", href: "/employers" },
+  { label: "Jobs", href: "/jobs" },
+  { label: "Opportunities", children: opportunityLinks },
   { label: "About Us", href: "/about" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "For Employers", href: "/employers" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
-];
+] as const;
 
-export default function Header() {
+function matchesRoute(pathname: string, href: string) {
+  return pathname === href || (href !== "/" && pathname.startsWith(href + "/"));
+}
+
+function HeaderContent({ pathname }: { pathname: string }) {
+  const headerRef = useRef<HTMLElement>(null);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
+  const dropdownLinksRef = useRef<HTMLUListElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const pathname = usePathname();
-  const phoneConfigured = !siteConfig.phone.includes("X");
+  const [dropdown, setDropdown] = useState<"closed" | "hover" | "open">("closed");
+  const opportunitiesActive = opportunityLinks.some(({ href }) => matchesRoute(pathname, href));
+  const [mobileOpportunitiesOpen, setMobileOpportunitiesOpen] = useState(opportunitiesActive);
+  const dropdownOpen = dropdown !== "closed";
+  const employerPage = matchesRoute(pathname, "/employers");
+  const cta = employerPage
+    ? { support: "Looking for Sri Lankan talent?", label: "Request Manpower", href: "/employers/request-manpower" }
+    : { support: "Looking for an overseas opportunity?", label: "Find Jobs", href: "/jobs" };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    if (!mobileOpen && !dropdownOpen) return;
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
+        setMobileOpen(false);
+        setDropdown("closed");
+      } else if (event.target instanceof Node && !dropdownRef.current?.contains(event.target)) {
+        setDropdown("closed");
+      }
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, [mobileOpen, dropdownOpen]);
+
+  useEffect(() => {
+    // Keep the CSS breakpoint and this media query in sync. No scroll listeners.
+    const desktop = window.matchMedia("(min-width: 1280px)");
+    const closeOnBreakpointChange = () => {
+      const focusWasInHeader = headerRef.current?.contains(document.activeElement);
+      setMobileOpen(false);
+      setDropdown("closed");
+      if (focusWasInHeader) {
+        if (desktop.matches) headerRef.current?.querySelector<HTMLAnchorElement>("[data-header-brand]")?.focus();
+        else mobileButtonRef.current?.focus();
+      }
+    };
+    desktop.addEventListener("change", closeOnBreakpointChange);
+    return () => desktop.removeEventListener("change", closeOnBreakpointChange);
   }, []);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  function closeNavigation() {
+    setMobileOpen(false);
+    setDropdown("closed");
+  }
+
+  function handleEscape(event: KeyboardEvent<HTMLElement>) {
+    if (event.key !== "Escape") return;
+    if (dropdownOpen) {
+      event.preventDefault();
+      setDropdown("closed");
+      dropdownButtonRef.current?.focus();
+    } else if (mobileOpen) {
+      event.preventDefault();
+      setMobileOpen(false);
+      mobileButtonRef.current?.focus();
+    }
+  }
+
+  function focusDropdownLink(last: boolean) {
+    setDropdown("open");
+    requestAnimationFrame(() => {
+      const links = dropdownLinksRef.current?.querySelectorAll<HTMLAnchorElement>("a");
+      links?.[last ? links.length - 1 : 0]?.focus();
+    });
+  }
+
+  function handleDropdownKeys(event: KeyboardEvent<HTMLUListElement>) {
+    const links = Array.from(event.currentTarget.querySelectorAll<HTMLAnchorElement>("a"));
+    const index = links.indexOf(document.activeElement as HTMLAnchorElement);
+    let nextIndex: number;
+    switch (event.key) {
+      case "ArrowDown": nextIndex = (index + 1) % links.length; break;
+      case "ArrowUp": nextIndex = (index - 1 + links.length) % links.length; break;
+      case "Home": nextIndex = 0; break;
+      case "End": nextIndex = links.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    links[nextIndex]?.focus();
+  }
 
   return (
-    <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled
-            ? "bg-white/98 backdrop-blur-sm shadow-[0_1px_16px_-4px_rgb(0_0_0/0.12)]"
-            : "bg-white/95 backdrop-blur-sm border-b border-slate-200/80"
-        )}
-        role="banner"
-      >
-        {/* Top bar */}
-        <div className="hidden md:block bg-brand-black text-white">
-          <div className="container-padded flex items-center justify-between py-1.5">
-            <div className="flex items-center gap-4 text-xs text-slate-300">
-              <span>{siteConfig.credentialStatusLabel}</span>
-            </div>
-            <div className="flex items-center gap-4 text-xs">
-              {phoneConfigured ? (
-                <a
-                  href={`tel:${siteConfig.phone}`}
-                  className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
-                  aria-label={`Call us at ${siteConfig.phone}`}
+    <header
+      className={styles.header}
+      ref={headerRef}
+      onKeyDown={handleEscape}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) closeNavigation();
+      }}
+    >
+      <div className={styles.topBar}>
+        <div className={styles.contactDetails}>
+          <a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer" aria-label={`View our location in ${siteConfig.address.city}, ${siteConfig.address.country}`}>
+            <MapPin size={15} aria-hidden="true" />
+            {siteConfig.address.city}, {siteConfig.address.country}
+          </a>
+          <a href={`mailto:${siteConfig.email}`}>
+            <Mail size={15} aria-hidden="true" />{siteConfig.email}
+          </a>
+          <a href={siteConfig.phoneHref} aria-label={`Call A-One on ${siteConfig.phoneDisplay}`}>
+            <Phone size={14} aria-hidden="true" />{siteConfig.phoneDisplay}
+          </a>
+        </div>
+        <HeaderSocialLinks />
+      </div>
+
+      <div className={styles.mainRow}>
+        <Link href="/" className={styles.brand} data-header-brand aria-label={`${siteConfig.name} – Home`} onClick={closeNavigation}>
+          <span className={styles.brandMark} aria-hidden="true">{siteConfig.brand.logoText}</span>
+          <span className={styles.brandCopy}>
+            <span className={styles.brandName}>{siteConfig.shortName}</span>
+            <span className={styles.brandTagline}>International Manpower</span>
+          </span>
+        </Link>
+
+        <nav className={styles.desktopNav} aria-label="Main navigation">
+          <ul className={styles.navList}>
+            {navigation.map((item) => "children" in item ? (
+              <li
+                key={item.label}
+                className={styles.dropdown}
+                ref={dropdownRef}
+                onPointerEnter={(event) => {
+                  if (event.pointerType === "mouse") setDropdown((current) => current === "closed" ? "hover" : current);
+                }}
+                onPointerLeave={(event) => {
+                  if (!event.currentTarget.contains(document.activeElement)) {
+                    setDropdown((current) => current === "hover" ? "closed" : current);
+                  }
+                }}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setDropdown("closed");
+                }}
+              >
+                <button
+                  ref={dropdownButtonRef}
+                  type="button"
+                  className={styles.navLink}
+                  data-active={opportunitiesActive || undefined}
+                  aria-expanded={dropdownOpen}
+                  aria-controls="desktop-opportunities"
+                  onClick={() => setDropdown((current) => current === "open" ? "closed" : "open")}
+                  onKeyDown={(event) => {
+                    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                      event.preventDefault();
+                      focusDropdownLink(event.key === "ArrowUp");
+                    }
+                  }}
                 >
-                  <Phone size={12} />
-                  {siteConfig.phone}
-                </a>
-              ) : (
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <Phone size={12} /> Official phone pending
-                </span>
-              )}
-              <a
-                href={whatsappUrl(siteConfig.whatsapp)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-teal-400 hover:text-teal-300 transition-colors font-medium"
-                aria-label="Chat on WhatsApp"
-              >
-                {/* WhatsApp icon */}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                WhatsApp Us
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Main nav */}
-        <div className="container-padded">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center gap-3 rounded-md"
-              aria-label={`${siteConfig.name} – Home`}
-            >
-              <div className="flex items-center justify-center w-9 h-9 bg-brand-black rounded-md">
-                <span className="text-white font-bold text-lg leading-none">{siteConfig.brand.logoText}</span>
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-[#0f1f3d] font-bold text-base leading-tight">
-                  {siteConfig.shortName}
-                </div>
-                <div className="text-slate-500 text-[11px] leading-tight">
-                  International Manpower
-                </div>
-              </div>
-            </Link>
-
-            {/* Desktop nav */}
-            <nav
-              className="hidden xl:flex items-center gap-0.5"
-              aria-label="Main navigation"
-            >
-              {navigation.map((item) =>
-                item.children ? (
-                  <div
-                    key={item.label}
-                    className="relative"
-                    onMouseEnter={() => setOpenDropdown(item.label)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
-                    <button
-                      onClick={() =>
-                        setOpenDropdown((current) =>
-                          current === item.label ? null : item.label
-                        )
-                      }
-                      className={cn(
-                        "flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-colors",
-                        isActive(item.href)
-                          ? "nav-link-active text-[#0f1f3d] bg-slate-100"
-                          : "text-slate-700 hover:text-[#0f1f3d] hover:bg-slate-50"
-                      )}
-                      aria-expanded={openDropdown === item.label}
-                      aria-haspopup="true"
-                    >
-                      {item.label}
-                      <ChevronDown
-                        size={14}
-                        className={cn(
-                          "transition-transform duration-200",
-                          openDropdown === item.label && "rotate-180"
-                        )}
-                      />
-                    </button>
-                    {openDropdown === item.label && (
-                      <div className="absolute top-full left-0 mt-1 w-52 bg-white border border-slate-200 rounded-lg shadow-lg py-1 animate-fadeIn">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setOpenDropdown(null)}
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#0f1f3d] transition-colors"
-                          >
-                            <child.icon size={14} className="text-teal-600 flex-shrink-0" />
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={cn(
-                      "px-3.5 py-2 text-sm font-medium rounded-md transition-colors",
-                      isActive(item.href)
-                        ? "nav-link-active text-[#0f1f3d] bg-slate-100"
-                        : "text-slate-700 hover:text-[#0f1f3d] hover:bg-slate-50"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              )}
-            </nav>
-
-            {/* Desktop CTAs */}
-            <div className="hidden xl:flex items-center gap-2">
-              <Link href="/contact" className="btn btn-secondary btn-sm">
-                Apply / Contact
-              </Link>
-              <Link
-                href="/jobs"
-                className="btn btn-primary btn-sm"
-                aria-label="Find overseas jobs"
-              >
-                Find Jobs
-              </Link>
-            </div>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="xl:hidden p-2 rounded-md text-slate-700 hover:bg-slate-100 transition-colors"
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-menu"
-              aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-            >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div
-            id="mobile-menu"
-            className="xl:hidden border-t border-slate-200 bg-white max-h-[calc(100vh-4rem)] overflow-y-auto"
-            aria-label="Mobile navigation"
-          >
-            <div className="container-padded py-4 space-y-1">
-              {navigation.map((item) => (
-                <div key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "block px-3 py-2.5 text-sm font-medium rounded-md transition-colors",
-                      isActive(item.href)
-                        ? "nav-link-active text-[#0f1f3d] bg-slate-100"
-                        : "text-slate-700 hover:bg-slate-50"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.children && (
-                    <div className="ml-4 mt-1 space-y-0.5">
-                      {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                          className="block px-3 py-2 text-sm text-slate-600 hover:text-[#0f1f3d] hover:bg-slate-50 rounded-md transition-colors"
-                        >
-                          {child.label}
+                  {item.label}<ChevronDown size={14} className={styles.chevron} aria-hidden="true" />
+                </button>
+                <div className={styles.dropdownPanel} hidden={!dropdownOpen}>
+                  <ul id="desktop-opportunities" ref={dropdownLinksRef} onKeyDown={handleDropdownKeys}>
+                    {item.children.map(({ href, label, icon: Icon }) => (
+                      <li key={href}>
+                        <Link href={href} aria-current={matchesRoute(pathname, href) ? "page" : undefined} onClick={closeNavigation}>
+                          <Icon size={18} aria-hidden="true" /><span>{label}</span>
                         </Link>
-                      ))}
-                    </div>
-                  )}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-              {/* Mobile CTA */}
-              <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
-                <Link href="/jobs" className="btn btn-primary w-full justify-center">
-                  Find Jobs
+              </li>
+            ) : (
+              <li key={item.href}>
+                <Link href={item.href} className={styles.navLink} data-active={matchesRoute(pathname, item.href) || undefined} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} onClick={closeNavigation}>
+                  {item.label}
                 </Link>
-                <Link href="/contact" className="btn btn-secondary w-full justify-center">
-                  Contact Us
-                </Link>
-                <a
-                  href={whatsappUrl(siteConfig.whatsapp)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-teal w-full justify-center"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                  WhatsApp Us
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
-    </>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <Link href={cta.href} className={styles.ctaPanel}>
+          <span className={styles.ctaSupport}>{cta.support}</span>
+          <span className={styles.ctaLabel}>{cta.label}<ArrowRight size={20} aria-hidden="true" /></span>
+        </Link>
+
+        <button
+          ref={mobileButtonRef}
+          type="button"
+          className={styles.mobileToggle}
+          onClick={() => setMobileOpen((current) => !current)}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+        >
+          {mobileOpen ? <X size={23} aria-hidden="true" /> : <Menu size={23} aria-hidden="true" />}
+        </button>
+      </div>
+
+      <nav id="mobile-navigation" className={styles.mobileMenu} aria-label="Mobile navigation" hidden={!mobileOpen}>
+        <ul className={styles.mobileNavList}>
+          {navigation.map((item) => "children" in item ? (
+            <li key={item.label}>
+              <button type="button" className={styles.mobileLink} data-active={opportunitiesActive || undefined} aria-expanded={mobileOpportunitiesOpen} aria-controls="mobile-opportunities" onClick={() => setMobileOpportunitiesOpen((current) => !current)}>
+                {item.label}<ChevronDown size={17} className={styles.chevron} aria-hidden="true" />
+              </button>
+              <ul id="mobile-opportunities" className={styles.mobileSubmenu} hidden={!mobileOpportunitiesOpen}>
+                {item.children.map(({ href, label, icon: Icon }) => (
+                  <li key={href}>
+                    <Link href={href} aria-current={matchesRoute(pathname, href) ? "page" : undefined} onClick={closeNavigation}>
+                      <Icon size={17} aria-hidden="true" /><span>{label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li key={item.href}>
+              <Link href={item.href} className={styles.mobileLink} data-active={matchesRoute(pathname, item.href) || undefined} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} onClick={closeNavigation}>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className={styles.mobileCta}>
+          <p>{cta.support}</p>
+          <Link href={cta.href} className="btn btn-primary" onClick={closeNavigation}>
+            {cta.label}<ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
+}
+
+export default function Header() {
+  const pathname = usePathname();
+  // Reset disclosures on every route change, including browser back/forward.
+  return <HeaderContent key={pathname} pathname={pathname} />;
 }

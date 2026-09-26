@@ -1,0 +1,377 @@
+.hero {
+  --hero-dark-gold: color-mix(in srgb, var(--color-brand-gold) 20%, var(--color-brand-black));
+  --hero-muted: color-mix(in srgb, var(--color-brand-black) 66%, var(--color-brand-white));
+  background: var(--color-brand-white);
+}
+
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-brand-black);
+}
+
+.video,
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.video {
+  z-index: -2;
+  object-fit: cover;
+  object-position: 62% center;
+}
+
+.overlay {
+  z-index: -1;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--color-brand-black) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-brand-black) 82%, transparent) 32%,
+      color-mix(in srgb, var(--hero-dark-gold) 60%, transparent) 68%,
+      color-mix(in srgb, var(--hero-dark-gold) 18%, transparent) 100%),
+    linear-gradient(0deg, rgb(0 0 0 / 0.32), transparent 48%);
+}
+
+.stageContainer {
+  padding-block: clamp(3rem, 5.2vw, 5rem) 6.25rem;
+}
+
+.copy {
+  max-width: 44rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-brand-white);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.eyebrow svg {
+  flex-shrink: 0;
+  color: var(--color-brand-gold);
+}
+
+.headline {
+  margin: 0;
+  border-left: 3px solid var(--color-brand-gold);
+  padding-left: clamp(1rem, 2vw, 1.75rem);
+  color: var(--color-brand-white);
+  font-size: clamp(1.875rem, 4.4vw, 3.75rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.headline span,
+.headline strong {
+  display: block;
+}
+
+.headline strong {
+  margin-top: 0.125em;
+  font-weight: 700;
+}
+
+.description {
+  max-width: 36rem;
+  margin-top: 1.5rem;
+  color: color-mix(in srgb, var(--color-brand-white) 88%, transparent);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 1.75rem;
+}
+
+.hero .action {
+  min-height: 52px;
+  justify-content: center;
+  padding-inline: 1.375rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.hero .secondaryAction {
+  border: 1px solid color-mix(in srgb, var(--color-brand-white) 45%, transparent);
+  background: color-mix(in srgb, var(--color-brand-black) 16%, transparent);
+  color: var(--color-brand-white);
+}
+
+.hero .secondaryAction:hover {
+  border-color: var(--color-brand-gold);
+  background: color-mix(in srgb, var(--hero-dark-gold) 70%, transparent);
+  color: var(--color-brand-white);
+}
+
+.hero .action:focus-visible {
+  outline: 2px solid var(--color-brand-white);
+  outline-offset: 4px;
+  box-shadow: none;
+}
+
+.searchArea {
+  position: relative;
+  z-index: 1;
+  margin-top: -2.5rem;
+  padding-bottom: 1.75rem;
+}
+
+.searchPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 0.55fr) auto;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border: 1px solid rgb(0 0 0 / 0.06);
+  border-radius: 0.75rem;
+  background: var(--color-brand-white);
+  box-shadow: 0 14px 38px -16px rgb(0 0 0 / 0.22);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 54px;
+  gap: 0.75rem;
+  padding-inline: 1rem;
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--hero-dark-gold) 3%, var(--color-brand-white));
+}
+
+.field > svg {
+  flex-shrink: 0;
+  color: var(--hero-muted);
+}
+
+.field:focus-within {
+  outline: 2px solid var(--color-brand-black);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--color-brand-gold);
+}
+
+.keywordInput,
+.destinationSelect {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  border: 0;
+  background: transparent;
+  color: var(--color-brand-black);
+  font-size: 0.875rem;
+}
+
+.keywordInput::placeholder {
+  color: var(--hero-muted);
+  opacity: 1;
+}
+
+/* The whole field supplies the high-contrast keyboard focus indicator. */
+.field :is(input, select):focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.selectWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.destinationSelect {
+  appearance: none;
+  padding-right: 1.25rem;
+  cursor: pointer;
+}
+
+.destinationSelect option {
+  background: var(--color-brand-white);
+  color: var(--color-brand-black);
+}
+
+.selectChevron {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.hero .searchButton {
+  min-height: 54px;
+  justify-content: center;
+  padding-inline: 1.5rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.popularSearches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem 1rem;
+  margin-top: 0.875rem;
+  color: var(--hero-muted);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.popularSearches > span {
+  color: var(--color-brand-black);
+  font-weight: 600;
+}
+
+.popularSearch {
+  min-height: 32px;
+  border: 0;
+  padding: 0.25rem 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--hero-muted) 40%, transparent);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.popularSearch:hover {
+  color: var(--color-brand-black);
+  text-decoration-color: var(--color-brand-gold);
+  text-decoration-thickness: 2px;
+}
+
+.disclaimer {
+  margin-top: 0.625rem;
+  border-left: 2px solid var(--color-brand-gold);
+  padding-left: 0.75rem;
+  color: var(--hero-muted);
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+  .video {
+    object-position: center 20%;
+  }
+}
+
+@media (max-width: 1439px) {
+  /* Leave a clear right-hand lane for the existing fixed WhatsApp control. */
+  .hero .searchArea {
+    padding-right: 6rem;
+  }
+}
+
+@media (max-width: 899px) {
+  .searchPanel {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .keywordField {
+    grid-column: 1 / -1;
+  }
+
+  .overlay {
+    background:
+      linear-gradient(90deg,
+        color-mix(in srgb, var(--color-brand-black) 90%, transparent),
+        color-mix(in srgb, var(--hero-dark-gold) 74%, transparent) 68%,
+        color-mix(in srgb, var(--hero-dark-gold) 38%, transparent)),
+      linear-gradient(0deg, rgb(0 0 0 / 0.35), transparent 60%);
+  }
+}
+
+@media (max-width: 639px) {
+  .hero .stageContainer {
+    padding-right: 6rem;
+    padding-top: 2.75rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .eyebrow {
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+  }
+
+  .eyebrow svg {
+    margin-top: 0.125rem;
+  }
+
+  .headline {
+    padding-left: 0.75rem;
+    border-left-width: 2px;
+  }
+
+  .description {
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero .action {
+    padding-inline: 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .searchArea {
+    margin-top: -2rem;
+  }
+
+  .searchPanel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.625rem;
+    padding: 0.75rem;
+  }
+
+  .field {
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+  }
+
+  .keywordInput,
+  .destinationSelect {
+    /* Avoid automatic input zoom in mobile browsers. */
+    font-size: 1rem;
+  }
+
+  .popularSearches {
+    gap: 0.125rem 0.875rem;
+    margin-top: 0.75rem;
+  }
+
+  .popularSearches > span {
+    flex-basis: 100%;
+  }
+
+  .popularSearch {
+    min-height: 44px;
+  }
+}
