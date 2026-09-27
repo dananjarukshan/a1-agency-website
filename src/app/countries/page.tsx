@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: `Recruitment Destinations | ${siteConfig.shortName}`,
   description:
-    "Explore overseas recruitment destinations for Sri Lankan workers, including Saudi Arabia, UAE, Qatar, Kuwait, Oman, and Bahrain.",
+    "Explore A-One's international recruitment markets across Asia, the Middle East, and Europe.",
   alternates: { canonical: "/countries" },
 };
 
@@ -67,7 +67,9 @@ export default function CountriesPage() {
               <div className="flex items-center justify-between pt-2">
                 <span className="text-sm font-semibold text-teal-700 flex items-center gap-1.5">
                   <Briefcase size={14} />
-                  {jobCount} Sample {jobCount === 1 ? "Job" : "Jobs"}
+                  {jobCount > 0
+                    ? `${jobCount} Sample ${jobCount === 1 ? "Job" : "Jobs"}`
+                    : "Recruiting market"}
                 </span>
                 <Link
                   href={`/countries/${country.slug}`}

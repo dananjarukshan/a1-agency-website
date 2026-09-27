@@ -3,8 +3,8 @@ import { siteConfig } from "@/config/site";
 import HeroSection from "@/components/home/HeroSection";
 import MissionVision from "@/components/home/MissionVision";
 import PartnerCompanies from "@/components/home/PartnerCompanies";
+import FeaturedCountries from "@/components/home/FeaturedCountries";
 import FeaturedJobs from "@/components/home/FeaturedJobs";
-import PopularDestinations from "@/components/home/PopularDestinations";
 import JobCategories from "@/components/home/JobCategories";
 import HowItWorks from "@/components/home/HowItWorks";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -26,8 +26,8 @@ export default function HomePage() {
       <HeroSection />
       <MissionVision />
       <PartnerCompanies />
+      <FeaturedCountries />
       <FeaturedJobs />
-      <PopularDestinations />
       <JobCategories />
       <HowItWorks />
       <WhyChooseUs />
