@@ -3,13 +3,15 @@ export interface Country {
   id: string;
   slug: string;
   name: string;
+  shortName?: string;
   flag: string; // emoji flag
   region: string;
   summary: string;
-  jobCount: number;
   popularCategories: string[];
-  image?: string;
+  image: string;
+  featured: boolean;
   active: boolean;
+  status: "recruiting-market";
 }
 
 // ─── Job Category ─────────────────────────────────────────────────────────────
