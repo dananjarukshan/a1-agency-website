@@ -1,0 +1,114 @@
+.section {
+  padding-block: clamp(3.75rem, 7vw, 6.5rem);
+  background: #faf9f5;
+  border-bottom: 1px solid rgb(0 0 0 / 0.06);
+  color: #5c5c5c;
+}
+
+.header {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 0 0.875rem;
+  color: #615326;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-brand-gold);
+}
+
+.heading {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.description {
+  max-width: 38rem;
+  margin: 1rem auto 0;
+  color: #606060;
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  line-height: 1.75;
+}
+
+.logoTrack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: clamp(6.5rem, 22vw, 8rem);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 0.09);
+  border-radius: 0.5rem;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 4rem;
+  object-fit: contain;
+}
+
+.demoNote {
+  margin: 1.25rem 0 0;
+  color: #77746d;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .logoTrack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .logoItem {
+    height: 8.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logoTrack {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .logoItem {
+    height: 9rem;
+    padding: 1.75rem;
+  }
+
+  .logo {
+    max-height: 4.5rem;
+  }
+}
