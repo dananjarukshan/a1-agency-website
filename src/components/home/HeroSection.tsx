@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { countries, jobCategories, jobs } from "@/data";
 import styles from "./HeroSection.module.css";
+import statsStyles from "./Statistics.module.css";
 
 export default function HeroSection() {
   const router = useRouter();
@@ -155,18 +156,18 @@ export default function HeroSection() {
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white" aria-label="Website overview">
-        <div className="container-padded grid grid-cols-2 divide-x divide-slate-200 py-6 sm:grid-cols-4">
+      <section className={statsStyles.section} aria-label="Website overview">
+        <div className={`container-padded ${statsStyles.grid}`}>
           {[
             { value: `${activeJobs.length}`, label: "Sample vacancies", icon: BriefcaseBusiness },
             { value: `${countries.length}`, label: "Destinations", icon: MapPin },
             { value: `${jobCategories.length}`, label: "Career categories", icon: Search },
             { value: "10 steps", label: "Guided journey", icon: CircleCheck },
           ].map((item) => (
-            <div key={item.label} className="px-3 py-2 text-center sm:px-5">
-              <item.icon size={17} className="mx-auto mb-2 text-teal-600" aria-hidden="true" />
-              <p className="text-xl font-bold tracking-tight text-navy-900">{item.value}</p>
-              <p className="mt-0.5 text-xs text-slate-500">{item.label}</p>
+            <div key={item.label} className={statsStyles.item}>
+              <item.icon size={20} className={statsStyles.icon} aria-hidden="true" />
+              <p className={statsStyles.value}>{item.value}</p>
+              <p className={statsStyles.label}>{item.label}</p>
             </div>
           ))}
         </div>
