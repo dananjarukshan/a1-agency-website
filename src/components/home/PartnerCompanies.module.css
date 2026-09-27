@@ -50,15 +50,33 @@
   line-height: 1.75;
 }
 
-.logoTrack {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+.logoViewport {
+  --logo-gap: 0.75rem;
+
+  container-type: inline-size;
   margin-top: clamp(2.25rem, 5vw, 3.75rem);
+  overflow: hidden;
+}
+
+.logoTrack {
+  display: flex;
+  width: max-content;
+  animation: partner-marquee var(--marquee-duration, 32s) linear infinite;
+  will-change: transform;
+}
+
+.logoGroup {
+  display: flex;
+  flex: none;
+  gap: var(--logo-gap);
+  margin: 0;
+  padding: 0 var(--logo-gap) 0 0;
+  list-style: none;
 }
 
 .logoItem {
   display: flex;
+  flex: 0 0 calc((100cqi - var(--logo-gap)) / 2);
   align-items: center;
   justify-content: center;
   min-width: 0;
@@ -77,6 +95,16 @@
   object-fit: contain;
 }
 
+@keyframes partner-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 .demoNote {
   margin: 1.25rem 0 0;
   color: #77746d;
@@ -86,29 +114,66 @@
 }
 
 @media (min-width: 768px) {
-  .logoTrack {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
+  .logoViewport {
+    --logo-gap: 1rem;
   }
 
   .logoItem {
+    flex-basis: calc((100cqi - var(--logo-gap) - var(--logo-gap)) / 3);
     height: 8.5rem;
     padding: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .logoTrack {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
+  .logoViewport {
+    --logo-gap: 1.25rem;
   }
 
   .logoItem {
+    flex-basis: calc(
+      (100cqi - var(--logo-gap) - var(--logo-gap) - var(--logo-gap)) / 4
+    );
     height: 9rem;
     padding: 1.75rem;
   }
 
   .logo {
     max-height: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoViewport {
+    overflow: visible;
+  }
+
+  .logoTrack {
+    display: block;
+    width: 100%;
+    animation: none;
+    will-change: auto;
+  }
+
+  .logoGroup {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-right: 0;
+  }
+
+  .logoGroup[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: reduce) {
+  .logoGroup {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .logoGroup {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
