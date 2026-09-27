@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import HeroSection from "@/components/home/HeroSection";
+import MissionVision from "@/components/home/MissionVision";
 import FeaturedJobs from "@/components/home/FeaturedJobs";
 import PopularDestinations from "@/components/home/PopularDestinations";
 import JobCategories from "@/components/home/JobCategories";
@@ -22,6 +23,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <MissionVision />
       <FeaturedJobs />
       <PopularDestinations />
       <JobCategories />
