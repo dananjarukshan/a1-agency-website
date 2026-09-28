@@ -149,6 +149,15 @@
   transition: transform 160ms ease;
 }
 
+.mobileOpportunityRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+}
+
+.mobileDropdownToggle {
+  justify-content: center;
+}
+
 [aria-expanded="true"] > .chevron {
   transform: rotate(180deg);
 }
@@ -311,6 +320,20 @@
     position: relative;
   }
 
+  .opportunityTrigger {
+    display: flex;
+    align-items: center;
+  }
+
+  .opportunityLink {
+    padding-right: 0;
+  }
+
+  .dropdownToggle {
+    min-width: 26px;
+    padding-inline: 0.375rem;
+  }
+
   .dropdownPanel {
     position: absolute;
     top: 100%;
@@ -402,6 +425,9 @@
     font-size: 0.875rem;
     padding-inline: 0.625rem;
   }
+
+  .opportunityLink { padding-right: 0; }
+  .dropdownToggle { padding-inline: 0.375rem; }
 }
 
 @media (min-width: 1600px) {

@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, BriefcaseBusiness, ChevronDown, Globe, Mail, MapPin, Menu, Phone, X } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, ChevronDown, Compass, Globe, Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import HeaderSocialLinks from "./HeaderSocialLinks";
 import styles from "./Header.module.css";
 
 const opportunityLinks = [
+  { label: "Explore All Opportunities", href: "/opportunities", icon: Compass },
   { label: "Browse by Country", href: "/countries", icon: Globe },
   { label: "Browse by Job Category", href: "/job-categories", icon: BriefcaseBusiness },
 ] as const;
@@ -17,7 +18,7 @@ const navigation = [
   { label: "Home", href: "/" },
   { label: "For Employers", href: "/employers" },
   { label: "Jobs", href: "/jobs" },
-  { label: "Opportunities", children: opportunityLinks },
+  { label: "Opportunities", href: "/opportunities", children: opportunityLinks },
   { label: "About Us", href: "/about" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "FAQ", href: "/faq" },
@@ -115,6 +116,13 @@ function HeaderContent({ pathname }: { pathname: string }) {
     links[nextIndex]?.focus();
   }
 
+  function handleDropdownTriggerKeys(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      focusDropdownLink(event.key === "ArrowUp");
+    }
+  }
+
   return (
     <header
       className={styles.header}
@@ -168,23 +176,31 @@ function HeaderContent({ pathname }: { pathname: string }) {
                   if (!event.currentTarget.contains(event.relatedTarget)) setDropdown("closed");
                 }}
               >
-                <button
-                  ref={dropdownButtonRef}
-                  type="button"
-                  className={styles.navLink}
-                  data-active={opportunitiesActive || undefined}
-                  aria-expanded={dropdownOpen}
-                  aria-controls="desktop-opportunities"
-                  onClick={() => setDropdown((current) => current === "open" ? "closed" : "open")}
-                  onKeyDown={(event) => {
-                    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-                      event.preventDefault();
-                      focusDropdownLink(event.key === "ArrowUp");
-                    }
-                  }}
-                >
-                  {item.label}<ChevronDown size={14} className={styles.chevron} aria-hidden="true" />
-                </button>
+                <div className={styles.opportunityTrigger}>
+                  <Link
+                    href={item.href}
+                    className={`${styles.navLink} ${styles.opportunityLink}`}
+                    data-active={opportunitiesActive || undefined}
+                    aria-current={matchesRoute(pathname, item.href) ? "page" : undefined}
+                    onClick={closeNavigation}
+                    onKeyDown={handleDropdownTriggerKeys}
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    ref={dropdownButtonRef}
+                    type="button"
+                    className={`${styles.navLink} ${styles.dropdownToggle}`}
+                    data-active={opportunitiesActive || undefined}
+                    aria-label="Toggle Opportunities menu"
+                    aria-expanded={dropdownOpen}
+                    aria-controls="desktop-opportunities"
+                    onClick={() => setDropdown((current) => current === "open" ? "closed" : "open")}
+                    onKeyDown={handleDropdownTriggerKeys}
+                  >
+                    <ChevronDown size={14} className={styles.chevron} aria-hidden="true" />
+                  </button>
+                </div>
                 <div className={styles.dropdownPanel} hidden={!dropdownOpen}>
                   <ul id="desktop-opportunities" ref={dropdownLinksRef} onKeyDown={handleDropdownKeys}>
                     {item.children.map(({ href, label, icon: Icon }) => (
@@ -229,9 +245,14 @@ function HeaderContent({ pathname }: { pathname: string }) {
         <ul className={styles.mobileNavList}>
           {navigation.map((item) => "children" in item ? (
             <li key={item.label}>
-              <button type="button" className={styles.mobileLink} data-active={opportunitiesActive || undefined} aria-expanded={mobileOpportunitiesOpen} aria-controls="mobile-opportunities" onClick={() => setMobileOpportunitiesOpen((current) => !current)}>
-                {item.label}<ChevronDown size={17} className={styles.chevron} aria-hidden="true" />
-              </button>
+              <div className={styles.mobileOpportunityRow}>
+                <Link href={item.href} className={styles.mobileLink} data-active={opportunitiesActive || undefined} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} onClick={closeNavigation}>
+                  {item.label}
+                </Link>
+                <button type="button" className={`${styles.mobileLink} ${styles.mobileDropdownToggle}`} aria-label="Toggle Opportunities submenu" aria-expanded={mobileOpportunitiesOpen} aria-controls="mobile-opportunities" onClick={() => setMobileOpportunitiesOpen((current) => !current)}>
+                  <ChevronDown size={17} className={styles.chevron} aria-hidden="true" />
+                </button>
+              </div>
               <ul id="mobile-opportunities" className={styles.mobileSubmenu} hidden={!mobileOpportunitiesOpen}>
                 {item.children.map(({ href, label, icon: Icon }) => (
                   <li key={href}>
