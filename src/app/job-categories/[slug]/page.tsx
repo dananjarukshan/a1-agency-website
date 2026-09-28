@@ -48,6 +48,7 @@ export default async function CategoryDetailPage({ params }: Props) {
           <h1 className="text-3xl font-bold text-white leading-tight mb-2">
             {category.name} Overseas Jobs
           </h1>
+          {!category.agencyConfirmed && <p className="text-slate-400 text-xs mb-3">Demo job category</p>}
           <p className="text-slate-400 text-sm max-w-2xl">
             {category.description}
           </p>
@@ -55,9 +56,11 @@ export default async function CategoryDetailPage({ params }: Props) {
       </div>
 
       <div className="container-padded py-10">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <h2 className="text-xl font-bold text-[#0f1f3d]">
-            Sample {category.name} Vacancies ({categoryJobs.length})
+            {categoryJobs.length > 0
+              ? `Sample ${category.name} Vacancies (${categoryJobs.length})`
+              : `${category.name} Opportunities`}
           </h2>
           <Link href="/jobs" className="text-sm font-semibold text-teal-700 hover:underline">
             View All Categories & Jobs
@@ -67,7 +70,7 @@ export default async function CategoryDetailPage({ params }: Props) {
         {categoryJobs.length === 0 ? (
           <EmptyState
             title={`No Sample Jobs in ${category.name}`}
-            description="There are no demonstration vacancies in this category yet. Browse the other sample roles or connect live job data later."
+            description="There are no sample vacancies listed for this field at the moment. Explore other categories to see the available sample opportunities."
             actionLabel="View All Jobs"
             actionHref="/jobs"
           />

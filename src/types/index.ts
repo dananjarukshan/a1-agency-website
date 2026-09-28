@@ -21,8 +21,9 @@ export interface JobCategory {
   name: string;
   icon: string; // Lucide icon name
   description: string;
-  jobCount: number;
-  countries: string[]; // country slugs currently hiring
+  agencyConfirmed: boolean;
+  jobCount: number; // Active sample job listings, not vacancy headcount
+  countries: string[]; // Destinations represented by active sample jobs
 }
 
 // ─── Employer ─────────────────────────────────────────────────────────────────

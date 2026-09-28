@@ -1,4 +1,5 @@
 import type { Country, JobCategory, Job, Testimonial, FAQ } from "@/types";
+import { jobCategoryDefinitions } from "./job-categories";
 
 // ─── Countries ────────────────────────────────────────────────────────────────
 export const countries: Country[] = [
@@ -217,127 +218,7 @@ export const countries: Country[] = [
 ];
 
 // ─── Job Categories ───────────────────────────────────────────────────────────
-export const jobCategories: JobCategory[] = [
-  {
-    id: "drivers",
-    slug: "drivers",
-    name: "Drivers",
-    icon: "Truck",
-    description:
-      "Heavy vehicle, light vehicle, and specialised vehicle driving positions across the Middle East.",
-    jobCount: 1,
-    countries: ["saudi-arabia", "united-arab-emirates", "qatar", "kuwait"],
-  },
-  {
-    id: "construction",
-    slug: "construction",
-    name: "Construction",
-    icon: "HardHat",
-    description:
-      "Skilled and semi-skilled construction roles including labourers, masons, carpenters, and supervisors.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "qatar", "united-arab-emirates", "kuwait"],
-  },
-  {
-    id: "engineering",
-    slug: "engineering",
-    name: "Engineering",
-    icon: "Settings",
-    description:
-      "Civil, mechanical, and electrical engineering roles for qualified professionals.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "bahrain"],
-  },
-  {
-    id: "hospitality",
-    slug: "hospitality",
-    name: "Hospitality",
-    icon: "UtensilsCrossed",
-    description:
-      "Hotel, restaurant, and catering positions including kitchen, housekeeping, and front-of-house roles.",
-    jobCount: 2,
-    countries: ["united-arab-emirates", "qatar", "bahrain", "oman"],
-  },
-  {
-    id: "healthcare",
-    slug: "healthcare",
-    name: "Healthcare",
-    icon: "Stethoscope",
-    description:
-      "Medical and healthcare support positions including nursing aides and support staff.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "kuwait"],
-  },
-  {
-    id: "security",
-    slug: "security",
-    name: "Security",
-    icon: "Shield",
-    description:
-      "Security guard and officer roles for commercial, residential, and industrial premises.",
-    jobCount: 1,
-    countries: ["united-arab-emirates", "saudi-arabia", "kuwait", "qatar"],
-  },
-  {
-    id: "domestic-services",
-    slug: "domestic-services",
-    name: "Domestic Services",
-    icon: "Home",
-    description: "Household and domestic support roles as regulated by applicable Sri Lankan laws.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "kuwait"],
-  },
-  {
-    id: "electricians",
-    slug: "electricians",
-    name: "Electricians",
-    icon: "Zap",
-    description:
-      "Qualified electricians and electrical technicians for industrial and commercial projects.",
-    jobCount: 1,
-    countries: ["saudi-arabia", "united-arab-emirates", "qatar"],
-  },
-  {
-    id: "mechanics",
-    slug: "mechanics",
-    name: "Mechanics & Auto",
-    icon: "Wrench",
-    description:
-      "Vehicle mechanics, auto technicians, and workshop support roles.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "oman"],
-  },
-  {
-    id: "warehouse-logistics",
-    slug: "warehouse-logistics",
-    name: "Warehouse & Logistics",
-    icon: "Package",
-    description:
-      "Warehouse operators, forklift drivers, inventory and logistics support roles.",
-    jobCount: 1,
-    countries: ["united-arab-emirates", "oman", "bahrain"],
-  },
-  {
-    id: "technicians",
-    slug: "technicians",
-    name: "Technicians",
-    icon: "Cpu",
-    description:
-      "HVAC, plumbing, welding, and general maintenance technician roles.",
-    jobCount: 2,
-    countries: ["saudi-arabia", "qatar", "united-arab-emirates"],
-  },
-  {
-    id: "cleaning-services",
-    slug: "cleaning-services",
-    name: "Cleaning Services",
-    icon: "Sparkles",
-    description:
-      "Industrial, commercial, and facility cleaning roles.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "kuwait", "oman"],
-  },
-];
+// Category definitions live in ./job-categories; counts are derived below the job dataset.
 
 // ─── Jobs (Mock) ──────────────────────────────────────────────────────────────
 export const jobs: Job[] = [
@@ -819,6 +700,19 @@ export const jobs: Job[] = [
     updatedAt: "2026-08-26T00:00:00Z",
   },
 ];
+
+// Derive catalog statistics from actual active sample listings, never seeded totals.
+export const jobCategories: JobCategory[] = jobCategoryDefinitions.map((category) => {
+  const activeJobs = jobs.filter((job) => job.status === "active" && job.categorySlug === category.slug);
+  return {
+    ...category,
+    jobCount: activeJobs.length,
+    countries: Array.from(new Set(activeJobs.map((job) => job.country))),
+  };
+});
+
+// Reusable ordered subset for recruitment-field presentations, including Phase 10.
+export const recruitmentFields = jobCategories.filter((category) => category.agencyConfirmed);
 
 // ─── Testimonials (clearly demo) ──────────────────────────────────────────────
 export const testimonials: Testimonial[] = [

@@ -45,9 +45,16 @@ export default function JobCategoriesPage() {
                 <div className="w-12 h-12 rounded-lg bg-brand-black text-teal-400 flex items-center justify-center font-bold text-xl">
                   {cat.name.charAt(0)}
                 </div>
-                <span className="badge badge-new">{categoryJobs.length} Sample Jobs</span>
+                {categoryJobs.length > 0 && (
+                  <span className="badge badge-new">
+                    {categoryJobs.length} Sample {categoryJobs.length === 1 ? "Job" : "Jobs"}
+                  </span>
+                )}
               </div>
 
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                {cat.agencyConfirmed ? "Recruitment field" : "Demo job category"}
+              </p>
               <h2 className="text-xl font-bold text-[#0f1f3d] mb-2">{cat.name}</h2>
               <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">
                 {cat.description}

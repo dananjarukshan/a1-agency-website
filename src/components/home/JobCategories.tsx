@@ -1,61 +1,59 @@
 import Link from "next/link";
 import {
-  Truck, HardHat, Settings, UtensilsCrossed, Stethoscope,
-  Shield, Home, Zap, Wrench, Package, Cpu, Sparkles, ArrowRight
+  ArrowRight, Car, Coffee, Cog, HardHat, HeartPulse, Hotel,
+  House, Landmark, Scissors, Shirt, Sparkles, Sprout, Users,
+  type LucideIcon,
 } from "lucide-react";
-import SectionHeading from "@/components/common/SectionHeading";
-import { jobCategories, jobs } from "@/data";
+import { recruitmentFields } from "@/data";
+import JobCategoryGrid from "./JobCategoryGrid";
+import styles from "./JobCategories.module.css";
 
-const iconMap: Record<string, React.ElementType> = {
-  Truck, HardHat, Settings, UtensilsCrossed, Stethoscope,
-  Shield, Home, Zap, Wrench, Package, Cpu, Sparkles,
+const iconMap: Record<string, LucideIcon> = {
+  Car, Coffee, Cog, HardHat, HeartPulse, Hotel, House,
+  Landmark, Scissors, Shirt, Sparkles, Sprout, Users,
 };
 
 export default function JobCategories() {
   return (
-    <section className="section-padding bg-white" aria-labelledby="categories-heading">
+    <section className={styles.section} aria-labelledby="categories-heading">
       <div className="container-padded">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-          <SectionHeading
-            label="What We Recruit"
-            title="Browse by Job Category"
-            subtitle="Find opportunities across a wide range of skilled, semi-skilled, and technical occupations."
-          />
-          <Link
-            href="/job-categories"
-            className="flex items-center gap-2 text-sm font-semibold text-[#0f1f3d] hover:text-blue-700 transition-colors whitespace-nowrap"
-          >
-            All Categories
-            <ArrowRight size={16} />
+        <div className={styles.header}>
+          <div>
+            <p className={styles.eyebrow}>Recruitment expertise</p>
+            <h2 id="categories-heading" className={styles.heading}>Fields We Recruit For</h2>
+            <p className={styles.description}>
+              Connecting Sri Lankan talent with overseas opportunities across a wide range of industries.
+            </p>
+          </div>
+          <Link href="/job-categories" className={styles.directoryLink}>
+            View all categories <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-          {jobCategories.map((cat) => {
-            const Icon = iconMap[cat.icon] ?? HardHat;
-            const jobCount = jobs.filter(
-              (job) => job.status === "active" && job.categorySlug === cat.slug
-            ).length;
+        <JobCategoryGrid>
+          {recruitmentFields.map((category) => {
+            const Icon = iconMap[category.icon] ?? Users;
             return (
-              <Link
-                key={cat.slug}
-                href={`/job-categories/${cat.slug}`}
-                className="group flex flex-col items-center p-4 rounded-xl border border-slate-200 hover:border-[#0f1f3d] hover:bg-brand-black hover:text-white transition-all duration-200 text-center"
-                aria-label={`${cat.name} jobs – ${jobCount} sample vacancies`}
-              >
-                <div className="w-11 h-11 rounded-lg bg-slate-100 group-hover:bg-white/20 flex items-center justify-center mb-3 transition-colors">
-                  <Icon size={22} className="text-[#0f1f3d] group-hover:text-white transition-colors" aria-hidden="true" />
-                </div>
-                <span className="font-semibold text-xs text-[#0f1f3d] group-hover:text-white transition-colors leading-tight mb-1">
-                  {cat.name}
-                </span>
-                <span className="text-xs text-slate-500 group-hover:text-white/70 transition-colors">
-                  {jobCount} sample {jobCount === 1 ? "job" : "jobs"}
-                </span>
-              </Link>
+              <li key={category.slug}>
+                <Link
+                  href={`/job-categories/${category.slug}`}
+                  className={styles.tile}
+                  aria-label={`Explore ${category.name} opportunities`}
+                >
+                  <span className={styles.icon}>
+                    <Icon size={22} strokeWidth={1.6} aria-hidden="true" />
+                  </span>
+                  <div className={styles.tileBody}>
+                    <h3 className={styles.title}>{category.name}</h3>
+                    <span className={styles.tileAction}>
+                      View opportunities <ArrowRight size={15} aria-hidden="true" />
+                    </span>
+                  </div>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </JobCategoryGrid>
       </div>
     </section>
   );
