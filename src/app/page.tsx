@@ -25,13 +25,13 @@ export default function HomePage() {
     <>
       <HeroSection />
       <MissionVision />
+      <EmployerCTA />
       <PartnerCompanies />
       <FeaturedCountries />
       <FeaturedJobs />
       <JobCategories />
       <HowItWorks />
       <WhyChooseUs />
-      <EmployerCTA />
       <Testimonials />
       <FAQPreview />
       <ContactCTA />
