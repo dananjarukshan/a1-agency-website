@@ -26,7 +26,7 @@ export const countries: Country[] = [
     summary:
       "The United Arab Emirates, including Dubai, is one of A-One's international recruitment markets across skilled and service-oriented fields.",
     popularCategories: ["Hospitality", "Engineering", "Beauty & Personal Care"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/united-arab-emirates.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
@@ -40,7 +40,7 @@ export const countries: Country[] = [
     summary:
       "Kuwait is one of A-One's international recruitment markets, with preview categories spanning skilled, household, and support-service fields.",
     popularCategories: ["Construction", "Domestic Services", "Driving"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/kuwait.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
@@ -54,7 +54,7 @@ export const countries: Country[] = [
     summary:
       "Oman is one of A-One's international recruitment markets, represented by selected technical, hospitality, and support-service categories.",
     popularCategories: ["Hospitality", "Driving", "Cleaning Services"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/oman.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
@@ -68,7 +68,7 @@ export const countries: Country[] = [
     summary:
       "Qatar is one of A-One's international recruitment markets, with preview content covering construction, hospitality, and technical fields.",
     popularCategories: ["Construction", "Hospitality", "Engineering"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/qatar.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
@@ -82,7 +82,7 @@ export const countries: Country[] = [
     summary:
       "Bahrain is one of A-One's international recruitment markets, represented here through configurable service and professional recruitment categories.",
     popularCategories: ["Hospitality", "Engineering", "Finance"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/bahrain.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
@@ -111,7 +111,7 @@ export const countries: Country[] = [
     summary:
       "Saudi Arabia is one of A-One's international recruitment markets, with opportunities represented across several skilled and support-service fields.",
     popularCategories: ["Construction", "Driving", "Nursing & Healthcare"],
-    image: "/images/countries/placeholders/global-market.svg",
+    image: "/images/countries/featured/saudi-arabia.webp",
     featured: true,
     active: true,
     status: "recruiting-market",
