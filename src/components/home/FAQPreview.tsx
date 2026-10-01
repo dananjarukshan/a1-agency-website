@@ -14,7 +14,7 @@ export default function FAQPreview() {
           <div className="lg:col-span-2">
             <SectionHeading
               label="Common Questions"
-              title="Frequently Asked Questions"
+              title="Questions"
               subtitle="Answers to the questions we hear most from job seekers and employers."
             />
             <Link

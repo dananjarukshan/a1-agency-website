@@ -11,7 +11,6 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import EmployerCTA from "@/components/home/EmployerCTA";
 import Testimonials from "@/components/home/Testimonials";
 import FAQPreview from "@/components/home/FAQPreview";
-import ContactCTA from "@/components/home/ContactCTA";
 
 export const metadata: Metadata = {
   title: `Overseas Jobs for Sri Lankans | ${siteConfig.name}`,
@@ -28,13 +27,12 @@ export default function HomePage() {
       <EmployerCTA />
       <PartnerCompanies />
       <FeaturedCountries />
-      <FeaturedJobs />
       <JobCategories />
+      <FeaturedJobs />
+      <Testimonials />
       <HowItWorks />
       <WhyChooseUs />
-      <Testimonials />
       <FAQPreview />
-      <ContactCTA />
     </>
   );
 }
