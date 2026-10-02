@@ -1,4 +1,4 @@
-import type { Country, JobCategory, Job, Testimonial, FAQ } from "@/types";
+import type { Country, JobCategory, Job, RecruitmentExperience, FAQ } from "@/types";
 import { jobCategoryDefinitions } from "./job-categories";
 
 // ─── Countries ────────────────────────────────────────────────────────────────
@@ -714,36 +714,75 @@ export const jobCategories: JobCategory[] = jobCategoryDefinitions.map((category
 // Reusable ordered subset for recruitment-field presentations, including Phase 10.
 export const recruitmentFields = jobCategories.filter((category) => category.agencyConfirmed);
 
-// ─── Testimonials (clearly demo) ──────────────────────────────────────────────
-export const testimonials: Testimonial[] = [
+// ─── Recruitment Experiences (illustrative development examples) ──────────────
+// Replace entries with agency-approved feedback and identities, set isDemo to
+// false, and set verified only after confirmation. Optional image/logo paths
+// refer to supplied assets in /public. Omit ratings unless actually provided.
+export const recruitmentExperiences: RecruitmentExperience[] = [
   {
-    id: "t1",
-    name: "K. Perera",
+    id: "candidate-sample-1",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Heavy Vehicle Driver",
-    country: "Saudi Arabia",
-    content:
-      "The recruitment team guided me through every step of the process. I felt fully prepared before departing. The documentation support was excellent.",
-    rating: 5,
+    destination: "Saudi Arabia",
+    review:
+      "The team explained the documents I needed and helped me understand the next steps in the application process.",
+    verified: false,
     isDemo: true,
   },
   {
-    id: "t2",
-    name: "S. Fernando",
+    id: "candidate-sample-2",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Hotel Housekeeper",
-    country: "UAE",
-    content:
-      "I was nervous about working abroad for the first time, but the agency answered all my questions and kept me informed throughout. I am grateful for their support.",
-    rating: 5,
+    destination: "UAE",
+    review:
+      "I had questions about working abroad. The team talked me through the role and what to prepare for the interview.",
+    verified: false,
     isDemo: true,
   },
   {
-    id: "t3",
-    name: "A. Wickramasinghe",
+    id: "candidate-sample-3",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Electrician",
+    destination: "Qatar",
+    review:
+      "The contract terms and listed benefits were explained, with time to ask questions before deciding whether to proceed.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-1",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Recruitment team",
+    country: "UAE",
+    review:
+      "The discussion helped clarify our role requirements and the information needed to begin reviewing candidate profiles.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-2",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Hiring team",
     country: "Qatar",
-    content:
-      "Professional and transparent service. They clearly explained the contract terms and benefits before I signed anything. Highly recommended.",
-    rating: 4,
+    review:
+      "Candidate profiles were organised around the experience we had discussed, giving our team a clear basis for interviews.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-3",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Operations team",
+    country: "Saudi Arabia",
+    review:
+      "Updates on interview arrangements and outstanding documents helped our team keep track of the next recruitment steps.",
+    verified: false,
     isDemo: true,
   },
 ];

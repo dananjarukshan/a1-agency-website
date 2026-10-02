@@ -1,0 +1,242 @@
+.section {
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+  border-top: 1px solid #eeece5;
+  color: #171717;
+  background-color: #f8f7f3;
+  background-image:
+    linear-gradient(90deg, rgb(248 247 243 / 0.82), rgb(248 247 243 / 0.35)),
+    url("/images/recruitment-experiences-background.png");
+  background-position: center, 60% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.header { max-width: 48rem; }
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.875rem;
+  color: #5e5848;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--color-brand-gold);
+}
+
+.heading {
+  margin: 0;
+  color: #171717;
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: #62605a;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+.demoNotice {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid #e8dfbf;
+  border-radius: 0.5rem;
+  color: #5e5848;
+  background: #fffcf1;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.demoNotice svg { flex-shrink: 0; }
+
+.groups {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.group { min-width: 0; }
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.groupIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border: 1px solid #e8dfbf;
+  border-radius: 0.625rem;
+  color: #171717;
+  background: #fff5cf;
+}
+
+.groupHeading {
+  margin: 0;
+  color: #171717;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.cards {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards li { min-width: 0; }
+
+.card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  margin: 0;
+  padding: clamp(1.125rem, 2vw, 1.5rem);
+  border: 1px solid #e4e1d9;
+  border-radius: 0.875rem;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgb(23 23 23 / 0.025);
+  overflow-wrap: anywhere;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.quoteIcon {
+  flex-shrink: 0;
+  color: var(--color-brand-gold);
+  fill: var(--color-brand-gold);
+}
+
+.demoLabel,
+.verifiedLabel {
+  color: #62605a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.demoLabel {
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.25rem;
+  background: #f4f3ef;
+}
+
+.verifiedLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.verifiedLabel svg { flex-shrink: 0; }
+
+.review {
+  flex: 1;
+  margin: 0 0 1rem;
+  color: #45433e;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.review p { margin: 0; }
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid #eeece5;
+}
+
+.identity { min-width: 0; }
+
+.name {
+  margin: 0;
+  color: #171717;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.details {
+  margin: 0.125rem 0 0;
+  color: #62605a;
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.portrait,
+.logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  background: #f8f7f3;
+}
+
+.portrait { border-radius: 50%; object-fit: cover; }
+.logo { border-radius: 0.25rem; object-fit: contain; }
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0.375rem 0 0;
+  color: #62605a;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.rating svg { color: #856900; fill: var(--color-brand-gold); }
+
+@media (max-width: 767px) {
+  .section {
+    background-image:
+      linear-gradient(180deg, rgb(248 247 243 / 0.65), rgb(248 247 243 / 0.8) 65%, #f8f7f3),
+      url("/images/recruitment-experiences-background.png");
+    background-position: center top, 70% top;
+    background-size: 100% 44rem, auto 44rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
+}

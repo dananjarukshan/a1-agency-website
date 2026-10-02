@@ -1,66 +1,117 @@
-import { Star } from "lucide-react";
-import SectionHeading from "@/components/common/SectionHeading";
-import { testimonials } from "@/data";
+import Image from "next/image";
+import { BadgeCheck, Building2, Info, Quote, Star, UserRound } from "lucide-react";
+import { recruitmentExperiences } from "@/data";
+import type { RecruitmentExperience } from "@/types";
+import styles from "./Testimonials.module.css";
 
-function StarRating({ rating }: { rating: number }) {
+const experienceGroups = [
+  { type: "candidate", title: "Candidate Experiences", icon: UserRound },
+  { type: "employer", title: "Employer Feedback", icon: Building2 },
+] as const;
+
+function ExperienceCard({ experience }: { experience: RecruitmentExperience }) {
+  const isCandidate = experience.type === "candidate";
+  const identity = experience.isDemo
+    ? isCandidate ? "Sample Candidate Experience" : "Sample Employer Experience"
+    : isCandidate ? experience.name : experience.company;
+  const details = (isCandidate
+    ? [experience.role, experience.destination]
+    : [experience.contactRole, experience.country]
+  ).filter(Boolean).join(" · ");
+  const image = !experience.isDemo && (isCandidate ? experience.image : experience.logo);
+
   return (
-    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={14}
-          className={i < rating ? "fill-amber-400 text-amber-400" : "text-slate-200"}
-          aria-hidden="true"
-        />
-      ))}
-    </div>
+    <figure className={styles.card}>
+      <div className={styles.cardTop}>
+        <Quote size={22} className={styles.quoteIcon} aria-hidden="true" />
+        {experience.isDemo ? (
+          <span className={styles.demoLabel}>Illustrative example</span>
+        ) : experience.verified ? (
+          <span className={styles.verifiedLabel}>
+            <BadgeCheck size={15} aria-hidden="true" />
+            Verified feedback
+          </span>
+        ) : null}
+      </div>
+      <blockquote className={styles.review}>
+        <p>&ldquo;{experience.review}&rdquo;</p>
+      </blockquote>
+      <figcaption className={styles.caption}>
+        {image && (
+          <Image
+            src={image}
+            alt=""
+            width={40}
+            height={40}
+            className={isCandidate ? styles.portrait : styles.logo}
+          />
+        )}
+        <div className={styles.identity}>
+          <p className={styles.name}>{identity}</p>
+          {details && (
+            <p className={styles.details}>
+              {experience.isDemo && "Sample: "}{details}
+            </p>
+          )}
+          {!experience.isDemo && isCandidate && experience.rating !== undefined && (
+            <p className={styles.rating}>
+              <Star size={14} aria-hidden="true" />
+              <span>{experience.rating} out of 5</span>
+            </p>
+          )}
+        </div>
+      </figcaption>
+    </figure>
   );
 }
 
 export default function Testimonials() {
-  return (
-    <section className="section-padding bg-slate-50" aria-labelledby="testimonials-heading">
-      <div className="container-padded">
-        <div className="text-center mb-12 max-w-2xl mx-auto">
-          <SectionHeading
-            label="What Candidates Say"
-            title="Recruitment Experiences"
-            subtitle="The following are sample testimonials. We share genuine candidate feedback once real placements are confirmed."
-            centered
-          />
-          {/* Demo notice */}
-          <div className="mt-4 inline-flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-md px-3 py-1.5">
-            <span className="text-xs text-amber-700">
-              ℹ️ These are illustrative examples, not verified testimonials.
-            </span>
-          </div>
-        </div>
+  const hasDemoExperiences = recruitmentExperiences.some((experience) => experience.isDemo);
+  const hasRealExperiences = recruitmentExperiences.some((experience) => !experience.isDemo);
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <figure
-              key={t.id}
-              className="bg-white rounded-xl p-6 border border-slate-200 flex flex-col"
-              aria-label={`Testimonial from ${t.name}`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-brand-black flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-[#0f1f3d] text-sm">{t.name}</div>
-                    <div className="text-xs text-slate-500">
-                      {t.role} · {t.country}
-                    </div>
-                  </div>
-                </div>
-                <StarRating rating={t.rating} />
+  return (
+    <section className={styles.section} aria-labelledby="recruitment-experiences-heading">
+      <div className="container-padded">
+        <header className={styles.header}>
+          <p className={styles.eyebrow}>Recruitment Experiences</p>
+          <h2 id="recruitment-experiences-heading" className={styles.heading}>
+            Experiences from the Recruitment Journey
+          </h2>
+          <p className={styles.description}>
+            {hasRealExperiences
+              ? "Perspectives from candidates and employers on their recruitment journey."
+              : "Candidate and employer reviews will be featured here as verified feedback becomes available."}
+          </p>
+        </header>
+
+        {hasDemoExperiences && (
+          <p className={styles.demoNotice}>
+            <Info size={18} aria-hidden="true" />
+            <span>
+              Illustrative examples shown during website development. Entries labelled as samples are not verified reviews.
+            </span>
+          </p>
+        )}
+
+        <div className={styles.groups}>
+          {experienceGroups.map(({ type, title, icon: Icon }) => (
+            <section key={type} className={styles.group} aria-labelledby={`${type}-experiences-heading`}>
+              <div className={styles.groupHeader}>
+                <span className={styles.groupIcon}>
+                  <Icon size={20} aria-hidden="true" />
+                </span>
+                <h3 id={`${type}-experiences-heading`} className={styles.groupHeading}>
+                  {title}
+                </h3>
               </div>
-              <blockquote className="text-sm text-slate-600 leading-relaxed italic flex-1">
-                &ldquo;{t.content}&rdquo;
-              </blockquote>
-            </figure>
+              <ul className={styles.cards} role="list">
+                {recruitmentExperiences.filter((experience) => experience.type === type).map((experience) => (
+                  <li key={experience.id}>
+                    <ExperienceCard experience={experience} />
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
         </div>
       </div>

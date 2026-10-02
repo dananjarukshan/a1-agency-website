@@ -146,17 +146,31 @@ export interface Applicant {
   createdAt: string;
 }
 
-// ─── Testimonial ──────────────────────────────────────────────────────────────
-export interface Testimonial {
+// ─── Recruitment Experience ───────────────────────────────────────────────────
+interface RecruitmentExperienceBase {
   id: string;
-  name: string;
-  role: string; // e.g. "Electrician"
-  country: string; // where they went
-  content: string;
-  rating: number; // 1-5
-  isDemo: boolean; // clearly flag demo/placeholder testimonials
-  avatar?: string;
+  review: string;
+  verified: boolean; // Agency-confirmed feedback only; never displayed for demos
+  isDemo: boolean;
 }
+
+export type RecruitmentExperience = RecruitmentExperienceBase & (
+  | {
+      type: "candidate";
+      name: string;
+      role?: string;
+      destination?: string;
+      image?: string; // Agency-supplied asset under /public
+      rating?: 1 | 2 | 3 | 4 | 5; // Only a rating actually supplied with real feedback
+    }
+  | {
+      type: "employer";
+      company: string;
+      country?: string;
+      contactRole?: string;
+      logo?: string; // Agency-supplied asset under /public
+    }
+);
 
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 export interface FAQ {
