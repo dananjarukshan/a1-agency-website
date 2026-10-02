@@ -1,58 +1,56 @@
+"use client";
+
+import * as Accordion from "@radix-ui/react-accordion";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import SectionHeading from "@/components/common/SectionHeading";
+import { ChevronRight, Minus, Plus } from "lucide-react";
 import { faqs } from "@/data";
+import styles from "./FAQPreview.module.css";
 
 export default function FAQPreview() {
   const preview = faqs.slice(0, 5);
 
   return (
-    <section className="section-padding bg-white" aria-labelledby="faq-preview-heading">
+    <section className={styles.section} aria-labelledby="faq-preview-heading">
       <div className="container-padded">
-        <div className="grid lg:grid-cols-5 gap-12 items-start">
-          {/* Left */}
-          <div className="lg:col-span-2">
-            <SectionHeading
-              label="Common Questions"
-              title="Questions"
-              subtitle="Answers to the questions we hear most from job seekers and employers."
-            />
+        <div className={styles.layout}>
+          <div className={styles.header}>
+            <p className={styles.eyebrow}>Common Questions</p>
+            <h2 id="faq-preview-heading" className={styles.heading}>
+              Questions
+            </h2>
+            <p className={styles.description}>
+              Answers to the questions we hear most from job seekers and employers.
+            </p>
             <Link
               href="/faq"
-              className="mt-6 inline-flex items-center gap-2 btn btn-primary"
+              className={styles.directoryLink}
               aria-label="View all frequently asked questions"
             >
               View All FAQs
-              <ChevronRight size={16} />
+              <ChevronRight size={16} aria-hidden="true" />
             </Link>
           </div>
 
-          {/* Right – FAQ list */}
-          <div className="lg:col-span-3 space-y-3">
+          <Accordion.Root type="multiple" className={styles.accordion}>
             {preview.map((faq) => (
-              <details
-                key={faq.id}
-                className="group rounded-lg border border-slate-200 bg-white"
-              >
-                <summary
-                  className="flex items-start justify-between gap-3 px-5 py-4 cursor-pointer list-none"
-                  aria-label={faq.question}
-                >
-                  <span className="font-semibold text-[#0f1f3d] text-sm leading-relaxed">
-                    {faq.question}
-                  </span>
-                  <ChevronRight
-                    size={18}
-                    className="text-slate-400 group-open:rotate-90 transition-transform duration-200 flex-shrink-0 mt-0.5"
-                    aria-hidden="true"
-                  />
-                </summary>
-                <div className="px-5 pb-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                  {faq.answer}
-                </div>
-              </details>
+              <Accordion.Item key={faq.id} value={faq.id} className={styles.item}>
+                <Accordion.Header className={styles.questionHeading}>
+                  <Accordion.Trigger className={styles.trigger}>
+                    <span>{faq.question}</span>
+                    <span className={styles.toggleIcon} aria-hidden="true">
+                      <Plus size={17} className={styles.plusIcon} />
+                      <Minus size={17} className={styles.minusIcon} />
+                    </span>
+                  </Accordion.Trigger>
+                </Accordion.Header>
+                <Accordion.Content className={styles.content}>
+                  <div className={styles.answer}>
+                    <p>{faq.answer}</p>
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
             ))}
-          </div>
+          </Accordion.Root>
         </div>
       </div>
     </section>

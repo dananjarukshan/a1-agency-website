@@ -1,0 +1,188 @@
+.section {
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+  border-top: 1px solid #eeece5;
+  color: #171717;
+  background: #fcfbf8;
+}
+
+.header {
+  max-width: 48rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.875rem;
+  color: #5e5848;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--color-brand-gold);
+}
+
+.heading {
+  margin: 0;
+  color: #171717;
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: #62605a;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  min-width: 0;
+  padding: 0 0 1.75rem 3rem;
+}
+
+/* The mobile rail follows the same ordered list as the staged desktop rows. */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 2.625rem;
+  bottom: 0.5rem;
+  left: 1.0625rem;
+  width: 1px;
+  background: #d9c990;
+}
+
+.step:last-child { padding-bottom: 0; }
+
+.number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border: 1px solid rgb(244 195 0 / 0.35);
+  border-radius: 50%;
+  background: var(--color-brand-black);
+  color: var(--color-brand-gold);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepBody {
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.stepTitle {
+  margin: 0;
+  color: #171717;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.stepBody p {
+  margin: 0.625rem 0 0;
+  color: #62605a;
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+
+.action { margin-top: clamp(2rem, 4vw, 3rem); }
+
+.processLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  border-bottom: 1px solid #ccc5b4;
+  color: #171717;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease;
+}
+
+.processLink svg { flex-shrink: 0; }
+
+.processLink:focus-visible {
+  outline: 2px solid var(--color-brand-black);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px var(--color-brand-gold);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .processLink:hover { border-color: var(--color-brand-gold); }
+}
+
+@media (min-width: 768px) {
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .step:not(:last-child)::before {
+    top: 1.25rem;
+    right: 0;
+    bottom: auto;
+    left: 3.25rem;
+    width: auto;
+    height: 1px;
+  }
+
+  .step:nth-child(2n)::before { display: none; }
+
+  .number {
+    position: relative;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1.125rem;
+    font-size: 1rem;
+  }
+
+  .stepBody {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .step:nth-child(2n)::before { display: block; }
+  .step:nth-child(4n)::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .processLink { transition: none; }
+}
