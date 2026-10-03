@@ -1,42 +1,36 @@
-import type { Country, JobCategory, Job, Testimonial, FAQ } from "@/types";
+import type { Country, JobCategory, Job, RecruitmentExperience, FAQ } from "@/types";
+import { jobCategoryDefinitions } from "./job-categories";
 
 // ─── Countries ────────────────────────────────────────────────────────────────
 export const countries: Country[] = [
   {
-    id: "sa",
-    slug: "saudi-arabia",
-    name: "Saudi Arabia",
-    flag: "🇸🇦",
-    region: "Middle East",
+    id: "my",
+    slug: "malaysia",
+    name: "Malaysia",
+    flag: "🇲🇾",
+    region: "Southeast Asia",
     summary:
-      "A destination profile prepared for sample driver, technical, construction, hospitality, and healthcare content. Country-specific facts must be verified before launch.",
-    jobCount: 2,
-    popularCategories: ["Drivers", "Construction", "Hospitality", "Healthcare"],
+      "Malaysia is one of A-One's international recruitment markets, represented here with configurable preview content for a range of employment fields.",
+    popularCategories: ["Hospitality", "Construction", "Garment Industry"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
     active: true,
+    status: "recruiting-market",
   },
   {
     id: "ae",
     slug: "united-arab-emirates",
-    name: "United Arab Emirates",
+    name: "United Arab Emirates (Dubai)",
+    shortName: "UAE",
     flag: "🇦🇪",
     region: "Middle East",
     summary:
-      "A destination profile prepared for sample hospitality, engineering, retail, and security content. Country-specific facts must be verified before launch.",
-    jobCount: 2,
-    popularCategories: ["Hospitality", "Engineering", "Retail", "Security"],
+      "The United Arab Emirates, including Dubai, is one of A-One's international recruitment markets across skilled and service-oriented fields.",
+    popularCategories: ["Hospitality", "Engineering", "Beauty & Personal Care"],
+    image: "/images/countries/featured/united-arab-emirates.webp",
+    featured: true,
     active: true,
-  },
-  {
-    id: "qa",
-    slug: "qatar",
-    name: "Qatar",
-    flag: "🇶🇦",
-    region: "Middle East",
-    summary:
-      "A destination profile prepared for sample construction, hospitality, driving, and technician content. Country-specific facts must be verified before launch.",
-    jobCount: 2,
-    popularCategories: ["Construction", "Hospitality", "Drivers", "Technicians"],
-    active: true,
+    status: "recruiting-market",
   },
   {
     id: "kw",
@@ -45,10 +39,12 @@ export const countries: Country[] = [
     flag: "🇰🇼",
     region: "Middle East",
     summary:
-      "A destination profile prepared for sample security, construction, domestic-services, and driver content. Country-specific facts must be verified before launch.",
-    jobCount: 1,
-    popularCategories: ["Security", "Construction", "Domestic Services", "Drivers"],
+      "Kuwait is one of A-One's international recruitment markets, with preview categories spanning skilled, household, and support-service fields.",
+    popularCategories: ["Construction", "Domestic Services", "Driving"],
+    image: "/images/countries/featured/kuwait.webp",
+    featured: true,
     active: true,
+    status: "recruiting-market",
   },
   {
     id: "om",
@@ -57,10 +53,26 @@ export const countries: Country[] = [
     flag: "🇴🇲",
     region: "Middle East",
     summary:
-      "A destination profile prepared for sample logistics, hospitality, and technician content. Country-specific facts must be verified before launch.",
-    jobCount: 1,
-    popularCategories: ["Warehouse & Logistics", "Hospitality", "Technicians"],
+      "Oman is one of A-One's international recruitment markets, represented by selected technical, hospitality, and support-service categories.",
+    popularCategories: ["Hospitality", "Driving", "Cleaning Services"],
+    image: "/images/countries/featured/oman.webp",
+    featured: true,
     active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "qa",
+    slug: "qatar",
+    name: "Qatar",
+    flag: "🇶🇦",
+    region: "Middle East",
+    summary:
+      "Qatar is one of A-One's international recruitment markets, with preview content covering construction, hospitality, and technical fields.",
+    popularCategories: ["Construction", "Hospitality", "Engineering"],
+    image: "/images/countries/featured/qatar.webp",
+    featured: true,
+    active: true,
+    status: "recruiting-market",
   },
   {
     id: "bh",
@@ -69,135 +81,144 @@ export const countries: Country[] = [
     flag: "🇧🇭",
     region: "Middle East",
     summary:
-      "A destination profile prepared for future hospitality, retail, and engineering content. Country-specific facts must be verified before launch.",
-    jobCount: 0,
-    popularCategories: ["Hospitality", "Retail", "Engineering"],
+      "Bahrain is one of A-One's international recruitment markets, represented here through configurable service and professional recruitment categories.",
+    popularCategories: ["Hospitality", "Engineering", "Finance"],
+    image: "/images/countries/featured/bahrain.webp",
+    featured: true,
     active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "cy",
+    slug: "cyprus",
+    name: "Cyprus",
+    flag: "🇨🇾",
+    region: "Europe",
+    summary:
+      "Cyprus is one of A-One's international recruitment markets, with preview content for hospitality, care, and support-service fields.",
+    popularCategories: ["Hospitality", "Domestic Services", "Agriculture"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "sa",
+    slug: "saudi-arabia",
+    name: "Saudi Arabia",
+    shortName: "Saudi Arabia",
+    flag: "🇸🇦",
+    region: "Middle East",
+    summary:
+      "Saudi Arabia is one of A-One's international recruitment markets, with opportunities represented across several skilled and support-service fields.",
+    popularCategories: ["Construction", "Driving", "Nursing & Healthcare"],
+    image: "/images/countries/featured/saudi-arabia.webp",
+    featured: true,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "sg",
+    slug: "singapore",
+    name: "Singapore",
+    flag: "🇸🇬",
+    region: "Southeast Asia",
+    summary:
+      "Singapore is one of A-One's international recruitment markets, represented through configurable skilled, service, and professional fields.",
+    popularCategories: ["Hospitality", "Engineering", "Finance"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "il",
+    slug: "israel",
+    name: "Israel",
+    flag: "🇮🇱",
+    region: "Middle East",
+    summary:
+      "Israel is one of A-One's international recruitment markets, represented here with neutral preview content for selected employment fields.",
+    popularCategories: ["Agriculture", "Construction", "Nursing & Healthcare"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "ro",
+    slug: "romania",
+    name: "Romania",
+    flag: "🇷🇴",
+    region: "Europe",
+    summary:
+      "Romania is one of A-One's international recruitment markets, with configurable preview categories across practical and support-service fields.",
+    popularCategories: ["Construction", "Garment Industry", "General / Unskilled Helpers"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "fi",
+    slug: "finland",
+    name: "Finland",
+    flag: "🇫🇮",
+    region: "Europe",
+    summary:
+      "Finland is one of A-One's international recruitment markets, represented with configurable preview content for selected skilled fields.",
+    popularCategories: ["Nursing & Healthcare", "Engineering", "Hospitality"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "pl",
+    slug: "poland",
+    name: "Poland",
+    flag: "🇵🇱",
+    region: "Europe",
+    summary:
+      "Poland is one of A-One's international recruitment markets, represented through configurable practical, industrial, and support-service categories.",
+    popularCategories: ["Construction", "Garment Industry", "General / Unskilled Helpers"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "de",
+    slug: "germany",
+    name: "Germany",
+    flag: "🇩🇪",
+    region: "Europe",
+    summary:
+      "Germany is one of A-One's international recruitment markets, with configurable preview content across professional and skilled employment fields.",
+    popularCategories: ["Engineering", "Nursing & Healthcare", "Hospitality"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
+  },
+  {
+    id: "tr",
+    slug: "turkey",
+    name: "Turkey",
+    flag: "🇹🇷",
+    region: "Europe & Asia",
+    summary:
+      "Turkey is one of A-One's international recruitment markets, represented here with configurable service, production, and skilled-work categories.",
+    popularCategories: ["Hospitality", "Garment Industry", "Construction"],
+    image: "/images/countries/placeholders/global-market.svg",
+    featured: false,
+    active: true,
+    status: "recruiting-market",
   },
 ];
 
 // ─── Job Categories ───────────────────────────────────────────────────────────
-export const jobCategories: JobCategory[] = [
-  {
-    id: "drivers",
-    slug: "drivers",
-    name: "Drivers",
-    icon: "Truck",
-    description:
-      "Heavy vehicle, light vehicle, and specialised vehicle driving positions across the Middle East.",
-    jobCount: 1,
-    countries: ["saudi-arabia", "united-arab-emirates", "qatar", "kuwait"],
-  },
-  {
-    id: "construction",
-    slug: "construction",
-    name: "Construction",
-    icon: "HardHat",
-    description:
-      "Skilled and semi-skilled construction roles including labourers, masons, carpenters, and supervisors.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "qatar", "united-arab-emirates", "kuwait"],
-  },
-  {
-    id: "engineering",
-    slug: "engineering",
-    name: "Engineering",
-    icon: "Settings",
-    description:
-      "Civil, mechanical, and electrical engineering roles for qualified professionals.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "bahrain"],
-  },
-  {
-    id: "hospitality",
-    slug: "hospitality",
-    name: "Hospitality",
-    icon: "UtensilsCrossed",
-    description:
-      "Hotel, restaurant, and catering positions including kitchen, housekeeping, and front-of-house roles.",
-    jobCount: 2,
-    countries: ["united-arab-emirates", "qatar", "bahrain", "oman"],
-  },
-  {
-    id: "healthcare",
-    slug: "healthcare",
-    name: "Healthcare",
-    icon: "Stethoscope",
-    description:
-      "Medical and healthcare support positions including nursing aides and support staff.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "kuwait"],
-  },
-  {
-    id: "security",
-    slug: "security",
-    name: "Security",
-    icon: "Shield",
-    description:
-      "Security guard and officer roles for commercial, residential, and industrial premises.",
-    jobCount: 1,
-    countries: ["united-arab-emirates", "saudi-arabia", "kuwait", "qatar"],
-  },
-  {
-    id: "domestic-services",
-    slug: "domestic-services",
-    name: "Domestic Services",
-    icon: "Home",
-    description: "Household and domestic support roles as regulated by applicable Sri Lankan laws.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "kuwait"],
-  },
-  {
-    id: "electricians",
-    slug: "electricians",
-    name: "Electricians",
-    icon: "Zap",
-    description:
-      "Qualified electricians and electrical technicians for industrial and commercial projects.",
-    jobCount: 1,
-    countries: ["saudi-arabia", "united-arab-emirates", "qatar"],
-  },
-  {
-    id: "mechanics",
-    slug: "mechanics",
-    name: "Mechanics & Auto",
-    icon: "Wrench",
-    description:
-      "Vehicle mechanics, auto technicians, and workshop support roles.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "united-arab-emirates", "oman"],
-  },
-  {
-    id: "warehouse-logistics",
-    slug: "warehouse-logistics",
-    name: "Warehouse & Logistics",
-    icon: "Package",
-    description:
-      "Warehouse operators, forklift drivers, inventory and logistics support roles.",
-    jobCount: 1,
-    countries: ["united-arab-emirates", "oman", "bahrain"],
-  },
-  {
-    id: "technicians",
-    slug: "technicians",
-    name: "Technicians",
-    icon: "Cpu",
-    description:
-      "HVAC, plumbing, welding, and general maintenance technician roles.",
-    jobCount: 2,
-    countries: ["saudi-arabia", "qatar", "united-arab-emirates"],
-  },
-  {
-    id: "cleaning-services",
-    slug: "cleaning-services",
-    name: "Cleaning Services",
-    icon: "Sparkles",
-    description:
-      "Industrial, commercial, and facility cleaning roles.",
-    jobCount: 0,
-    countries: ["saudi-arabia", "kuwait", "oman"],
-  },
-];
+// Category definitions live in ./job-categories; counts are derived below the job dataset.
 
 // ─── Jobs (Mock) ──────────────────────────────────────────────────────────────
 export const jobs: Job[] = [
@@ -680,36 +701,88 @@ export const jobs: Job[] = [
   },
 ];
 
-// ─── Testimonials (clearly demo) ──────────────────────────────────────────────
-export const testimonials: Testimonial[] = [
+// Derive catalog statistics from actual active sample listings, never seeded totals.
+export const jobCategories: JobCategory[] = jobCategoryDefinitions.map((category) => {
+  const activeJobs = jobs.filter((job) => job.status === "active" && job.categorySlug === category.slug);
+  return {
+    ...category,
+    jobCount: activeJobs.length,
+    countries: Array.from(new Set(activeJobs.map((job) => job.country))),
+  };
+});
+
+// Reusable ordered subset for recruitment-field presentations, including Phase 10.
+export const recruitmentFields = jobCategories.filter((category) => category.agencyConfirmed);
+
+// ─── Recruitment Experiences (illustrative development examples) ──────────────
+// Replace entries with agency-approved feedback and identities, set isDemo to
+// false, and set verified only after confirmation. Optional image/logo paths
+// refer to supplied assets in /public. Omit ratings unless actually provided.
+export const recruitmentExperiences: RecruitmentExperience[] = [
   {
-    id: "t1",
-    name: "K. Perera",
+    id: "candidate-sample-1",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Heavy Vehicle Driver",
-    country: "Saudi Arabia",
-    content:
-      "The recruitment team guided me through every step of the process. I felt fully prepared before departing. The documentation support was excellent.",
-    rating: 5,
+    destination: "Saudi Arabia",
+    review:
+      "The team explained the documents I needed and helped me understand the next steps in the application process.",
+    verified: false,
     isDemo: true,
   },
   {
-    id: "t2",
-    name: "S. Fernando",
+    id: "candidate-sample-2",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Hotel Housekeeper",
-    country: "UAE",
-    content:
-      "I was nervous about working abroad for the first time, but the agency answered all my questions and kept me informed throughout. I am grateful for their support.",
-    rating: 5,
+    destination: "UAE",
+    review:
+      "I had questions about working abroad. The team talked me through the role and what to prepare for the interview.",
+    verified: false,
     isDemo: true,
   },
   {
-    id: "t3",
-    name: "A. Wickramasinghe",
+    id: "candidate-sample-3",
+    type: "candidate",
+    name: "Sample Candidate Experience",
     role: "Electrician",
+    destination: "Qatar",
+    review:
+      "The contract terms and listed benefits were explained, with time to ask questions before deciding whether to proceed.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-1",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Recruitment team",
+    country: "UAE",
+    review:
+      "The discussion helped clarify our role requirements and the information needed to begin reviewing candidate profiles.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-2",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Hiring team",
     country: "Qatar",
-    content:
-      "Professional and transparent service. They clearly explained the contract terms and benefits before I signed anything. Highly recommended.",
-    rating: 4,
+    review:
+      "Candidate profiles were organised around the experience we had discussed, giving our team a clear basis for interviews.",
+    verified: false,
+    isDemo: true,
+  },
+  {
+    id: "employer-sample-3",
+    type: "employer",
+    company: "Sample Employer Experience",
+    contactRole: "Operations team",
+    country: "Saudi Arabia",
+    review:
+      "Updates on interview arrangements and outstanding documents helped our team keep track of the next recruitment steps.",
+    verified: false,
     isDemo: true,
   },
 ];

@@ -2,7 +2,7 @@ import {
   BadgeCheck, Users, Eye, HeartHandshake,
   Globe, FileStack
 } from "lucide-react";
-import SectionHeading from "@/components/common/SectionHeading";
+import styles from "./WhyChooseUs.module.css";
 
 const features = [
   {
@@ -45,36 +45,39 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="section-padding bg-slate-50" aria-labelledby="why-choose-us-heading">
-      <div className="container-padded">
-        <div className="text-center mb-12 max-w-2xl mx-auto">
-          <SectionHeading
-            label="Why Work With Us"
-            title="Why Candidates Choose A1 Agency"
-            subtitle="We are committed to ethical, transparent, and professional overseas recruitment for Sri Lankan workers."
-            centered
-          />
-        </div>
+    <section className={styles.section} aria-labelledby="why-choose-us-heading">
+      <div className={`container-padded ${styles.layout}`}>
+        <header className={styles.header}>
+          <p className={styles.eyebrow}>Why Work With Us</p>
+          <h2 id="why-choose-us-heading" className={styles.heading}>
+            Why Candidates Choose A1 Agency
+          </h2>
+          <p className={styles.description}>
+            We are committed to ethical, transparent, and professional overseas recruitment for Sri Lankan workers.
+          </p>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className={styles.grid} role="list">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <div
+              <li
                 key={feature.title}
-                className="bg-white rounded-xl p-6 border border-slate-200 hover:border-[#0f1f3d]/20 hover:shadow-md transition-all duration-200"
+                className={styles.feature}
               >
-                <div className="w-11 h-11 rounded-lg bg-brand-black flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-teal-400" aria-hidden="true" />
+                <div className={styles.icon}>
+                  <Icon size={21} aria-hidden="true" />
                 </div>
-                <h3 className="font-bold text-[#0f1f3d] mb-2">{feature.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
+                <div className={styles.featureBody}>
+                  <h3 className={styles.featureTitle}>{feature.title}</h3>
+                  <p className={styles.featureDescription}>
+                    {feature.description}
+                  </p>
+                </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );
