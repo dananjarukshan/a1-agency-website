@@ -46,7 +46,12 @@ export const siteConfig = {
     country: "Sri Lanka",
   },
   mapUrl: "https://maps.app.goo.gl/fSjhdh7zNrPPF2Yq5",
-  officeHours: "Monday – Friday: 8:30 AM – 5:30 PM | Saturday: 9:00 AM – 1:00 PM",
+  officeHours: [
+    { days: "Monday–Friday", hours: "8:00 AM – 5:00 PM" },
+    { days: "Saturday", hours: "8:00 AM – 2:00 PM" },
+    { days: "Sunday", hours: "Closed" },
+    { days: "Public Holidays", hours: "Closed" },
+  ],
 
   // ─── Licensing ────────────────────────────────────────────────────────────
   /** SLBFE = Sri Lanka Bureau of Foreign Employment */

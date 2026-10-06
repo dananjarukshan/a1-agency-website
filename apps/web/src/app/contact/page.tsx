@@ -113,7 +113,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs text-slate-500 mb-0.5">Office Hours</p>
-                  <p className="font-semibold text-[#0f1f3d]">{siteConfig.officeHours}</p>
+                  {siteConfig.officeHours.map(({ days, hours }) => (
+                    <p key={days} className="font-semibold text-[#0f1f3d]">{days}: {hours}</p>
+                  ))}
                 </div>
               </div>
             </div>
