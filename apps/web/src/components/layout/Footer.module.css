@@ -59,6 +59,10 @@
   font-weight: 700;
 }
 
+.bannerQuestion {
+  display: block;
+}
+
 .bannerCopy p {
   margin-top: 1.1rem;
   font-size: 0.9375rem;

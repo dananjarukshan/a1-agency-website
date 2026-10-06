@@ -9,11 +9,11 @@ const groups = [
     title: "Jobs by Country",
     links: [
       ["Browse All Jobs", "/jobs"],
-      ["Jobs in Saudi Arabia", "/countries/saudi-arabia"],
       ["Jobs in UAE", "/countries/united-arab-emirates"],
       ["Jobs in Qatar", "/countries/qatar"],
       ["Jobs in Kuwait", "/countries/kuwait"],
       ["Jobs in Oman", "/countries/oman"],
+      ["Jobs in Saudi Arabia", "/countries/saudi-arabia"],
     ],
   },
   {
@@ -67,7 +67,8 @@ export default function Footer() {
         <section className={styles.contactBanner} aria-labelledby="footer-contact-title">
           <div className={styles.bannerCopy}>
             <h2 id="footer-contact-title">
-              Looking for <strong>overseas opportunities?</strong> Just call us.
+              <span className={styles.bannerQuestion}>Looking for <strong>Manpower for your company?</strong></span>
+              <span className={styles.bannerQuestion}>Looking for <strong>overseas job opportunities?</strong></span>
             </h2>
             <p>
               Need guidance? Call <a href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
@@ -91,7 +92,7 @@ export default function Footer() {
             />
           </Link>
           <p className={styles.description}>
-            A Sri Lanka-focused recruitment platform for overseas career opportunities and international manpower enquiries across the Middle East and beyond.
+            A Sri Lanka-focused recruitment platform for overseas career opportunities and international manpower enquiries across the world and beyond.
           </p>
           <nav className={styles.socials} aria-label="A-One social media">
             {socials.map(({ key, label }) => (
@@ -131,7 +132,12 @@ export default function Footer() {
                 <Mail size={18} aria-hidden="true" /><span>{siteConfig.email}</span>
               </a>
               <div className={styles.contactRow}>
-                <Clock size={18} aria-hidden="true" /><span>{siteConfig.officeHours}</span>
+                <Clock size={18} aria-hidden="true" />
+                <div>
+                  {siteConfig.officeHours.map(({ days, hours }) => (
+                    <p key={days}>{days}: {hours}</p>
+                  ))}
+                </div>
               </div>
             </address>
             <a href={siteConfig.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>
