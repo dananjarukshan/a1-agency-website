@@ -56,6 +56,9 @@ export interface Job {
   salaryMax?: number;
   currency: string;
   salaryDisplay: string; // formatted display string
+  /** Optional bounds, aligned with the admin New Job form. */
+  ageMin?: number;
+  ageMax?: number;
   vacancies: number;
   description: string;
   responsibilities: string[];

@@ -1,5 +1,6 @@
 import type { Country, JobCategory, Job, RecruitmentExperience, FAQ } from "@/types";
 import { jobCategoryDefinitions } from "./job-categories";
+import { formatJobSalary } from "@/lib/job-presentation";
 
 // ─── Countries ────────────────────────────────────────────────────────────────
 export const countries: Country[] = [
@@ -221,7 +222,9 @@ export const countries: Country[] = [
 // Category definitions live in ./job-categories; counts are derived below the job dataset.
 
 // ─── Jobs (Mock) ──────────────────────────────────────────────────────────────
-export const jobs: Job[] = [
+// Explicit development samples: salary amounts are not currency conversions;
+// age ranges are illustrative criteria, not agency-approved vacancy terms.
+const sampleJobs: Omit<Job, "salaryDisplay">[] = [
   {
     id: "j001",
     reference: "A1-DEMO-001",
@@ -234,10 +237,12 @@ export const jobs: Job[] = [
     employer: "International Employer – Saudi Arabia",
     categorySlug: "drivers",
     categoryName: "Drivers",
-    salaryMin: 1200,
-    salaryMax: 1500,
-    currency: "SAR",
-    salaryDisplay: "SAR 1,200 – 1,500 / month",
+    salaryMin: 120000,
+    salaryMax: 150000,
+    currency: "LKR",
+    ageMin: 25,
+    ageMax: 45,
+    image: "/images/jobs/hot-jobs/heavy-vehicle-driver.webp",
     vacancies: 15,
     description:
       "We are seeking experienced Heavy Vehicle Drivers for a leading logistics company based in Riyadh, Saudi Arabia. The role involves transporting goods across designated routes in compliance with Saudi traffic regulations. Accommodation, meals, and transportation are provided.",
@@ -297,10 +302,12 @@ export const jobs: Job[] = [
     employer: "International Hospitality Group – UAE",
     categorySlug: "hospitality",
     categoryName: "Hospitality",
-    salaryMin: 1400,
-    salaryMax: 1600,
-    currency: "AED",
-    salaryDisplay: "AED 1,400 – 1,600 / month",
+    salaryMin: 100000,
+    salaryMax: 130000,
+    currency: "LKR",
+    ageMin: 21,
+    ageMax: 40,
+    image: "/images/jobs/hot-jobs/hotel-housekeeper.webp",
     vacancies: 20,
     description:
       "A leading hospitality group in Dubai is recruiting Hotel Housekeepers for their 5-star properties. The role requires maintaining high standards of cleanliness and guest service. All accommodation and meals are provided.",
@@ -356,10 +363,12 @@ export const jobs: Job[] = [
     employer: "International Engineering Contractor – Qatar",
     categorySlug: "electricians",
     categoryName: "Electricians",
-    salaryMin: 1800,
-    salaryMax: 2400,
-    currency: "QAR",
-    salaryDisplay: "QAR 1,800 – 2,400 / month",
+    salaryMin: 150000,
+    salaryMax: 190000,
+    currency: "LKR",
+    ageMin: 23,
+    ageMax: 45,
+    image: "/images/jobs/hot-jobs/electrical-technician.webp",
     vacancies: 8,
     description:
       "An established engineering and construction contractor in Doha is seeking qualified Electrical Technicians for commercial and industrial projects. Candidates must hold relevant technical qualifications and experience.",
@@ -418,10 +427,11 @@ export const jobs: Job[] = [
     employer: "International Security Services – Kuwait",
     categorySlug: "security",
     categoryName: "Security",
-    salaryMin: 120,
-    salaryMax: 160,
-    currency: "KWD",
-    salaryDisplay: "KWD 120 – 160 / month",
+    salaryMin: 110000,
+    salaryMax: 140000,
+    currency: "LKR",
+    ageMin: 21,
+    ageMax: 40,
     vacancies: 30,
     description:
       "A reputable security services company in Kuwait is recruiting Security Guards for commercial and residential premises. No prior security experience required – full training provided upon arrival.",
@@ -477,10 +487,11 @@ export const jobs: Job[] = [
     employer: "Facilities Management Group – Saudi Arabia",
     categorySlug: "technicians",
     categoryName: "Technicians",
-    salaryMin: 1500,
-    salaryMax: 2200,
-    currency: "SAR",
-    salaryDisplay: "SAR 1,500 – 2,200 / month",
+    salaryMin: 140000,
+    salaryMax: 180000,
+    currency: "LKR",
+    ageMin: 23,
+    ageMax: 45,
     vacancies: 10,
     description:
       "A leading facilities management company in Jeddah is recruiting HVAC Technicians for commercial and residential properties. Candidates must have hands-on experience with HVAC systems installation, servicing, and repair.",
@@ -535,10 +546,11 @@ export const jobs: Job[] = [
     employer: "Catering Services Group – UAE",
     categorySlug: "hospitality",
     categoryName: "Hospitality",
-    salaryMin: 1200,
-    salaryMax: 1500,
-    currency: "AED",
-    salaryDisplay: "AED 1,200 – 1,500 / month",
+    salaryMin: 90000,
+    salaryMax: 120000,
+    currency: "LKR",
+    ageMin: 21,
+    ageMax: 40,
     vacancies: 25,
     description:
       "An established catering and food services company in Abu Dhabi is recruiting Kitchen Helpers and Junior Cooks. Experience in Sri Lankan or South Asian cuisine is an advantage.",
@@ -593,10 +605,11 @@ export const jobs: Job[] = [
     employer: "Construction Contractor – Qatar",
     categorySlug: "technicians",
     categoryName: "Technicians",
-    salaryMin: 1600,
-    salaryMax: 2200,
-    currency: "QAR",
-    salaryDisplay: "QAR 1,600 – 2,200 / month",
+    salaryMin: 160000,
+    salaryMax: 200000,
+    currency: "LKR",
+    ageMin: 25,
+    ageMax: 45,
     vacancies: 12,
     description:
       "An international construction contractor in Qatar is seeking experienced Structural Welders for major infrastructure and industrial projects. Candidates must be able to demonstrate welding skills during interview.",
@@ -653,10 +666,11 @@ export const jobs: Job[] = [
     employer: "Logistics Company – Oman",
     categorySlug: "warehouse-logistics",
     categoryName: "Warehouse & Logistics",
-    salaryMin: 180,
-    salaryMax: 250,
-    currency: "OMR",
-    salaryDisplay: "OMR 180 – 250 / month",
+    salaryMin: 100000,
+    salaryMax: 125000,
+    currency: "LKR",
+    ageMin: 21,
+    ageMax: 40,
     vacancies: 18,
     description:
       "A growing logistics and distribution company in Muscat, Oman is seeking Warehouse Assistants for their operations centre. The role involves receiving, storing, and dispatching goods in an organised warehouse environment.",
@@ -700,6 +714,9 @@ export const jobs: Job[] = [
     updatedAt: "2026-08-26T00:00:00Z",
   },
 ];
+
+// Keep legacy consumers (homepage, detail, application) on the same derived display.
+export const jobs: Job[] = sampleJobs.map((job) => ({ ...job, salaryDisplay: formatJobSalary(job) }));
 
 // Derive catalog statistics from actual active sample listings, never seeded totals.
 export const jobCategories: JobCategory[] = jobCategoryDefinitions.map((category) => {
