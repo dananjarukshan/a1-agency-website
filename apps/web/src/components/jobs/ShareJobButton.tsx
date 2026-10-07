@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import styles from "./JobDetail.module.css";
 
 interface ShareJobButtonProps {
   title: string;
@@ -12,8 +13,14 @@ interface ShareJobButtonProps {
 
 export default function ShareJobButton({ title, reference, className }: ShareJobButtonProps) {
   const [copied, setCopied] = useState(false);
+  const [message, setMessage] = useState("");
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
   const shareJob = async () => {
+    setMessage("");
+    setCopied(false);
+    if (timer.current) clearTimeout(timer.current);
     const url = window.location.href;
     const shareData = {
       title,
@@ -30,20 +37,28 @@ export default function ShareJobButton({ title, reference, className }: ShareJob
       }
     }
 
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setMessage("Job link copied to clipboard.");
+      timer.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setMessage("Unable to copy automatically. Copy the page address from your browser to share this job.");
+    }
   };
 
   return (
-    <button
+    <div>
+      <button
       type="button"
       onClick={shareJob}
-      className={cn("btn btn-secondary justify-center", className)}
+      className={cn(styles.secondary, className)}
       aria-label={`Share ${title}`}
     >
       {copied ? <Check size={16} aria-hidden="true" /> : <Share2 size={16} aria-hidden="true" />}
       {copied ? "Link copied" : "Share job"}
-    </button>
+      </button>
+      <p className={message ? styles.shareMessage : "sr-only"} role="status">{message}</p>
+    </div>
   );
 }
