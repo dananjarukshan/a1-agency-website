@@ -1,89 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Briefcase } from "lucide-react";
+import { ArrowUpRight, Globe2, Info } from "lucide-react";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
+import CountriesDirectory from "@/components/countries/CountriesDirectory";
+import CountryCard from "@/components/countries/CountryCard";
 import { countries, jobs } from "@/data";
+import { countrySampleJobs } from "@/lib/country-presentation";
 import { siteConfig } from "@/config/site";
+import styles from "@/components/countries/Countries.module.css";
 
+const description = `Explore A-One's ${countries.length} confirmed recruitment destinations across Asia, the Middle East and Europe. Discover recruitment fields and clearly labelled sample job listings.`;
 export const metadata: Metadata = {
-  title: `Recruitment Destinations | ${siteConfig.shortName}`,
-  description:
-    "Explore A-One's international recruitment markets across Asia, the Middle East, and Europe.",
+  title: { absolute: `Recruitment Destinations | ${siteConfig.name}` },
+  description,
   alternates: { canonical: "/countries" },
+  openGraph: { title: `Recruitment Destinations | ${siteConfig.name}`, description, url: `${siteConfig.url}/countries` },
 };
 
 export default function CountriesPage() {
   return (
-    <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-brand-black">
-        <div className="container-padded py-8">
-          <Breadcrumbs items={[{ label: "Countries" }]} className="text-slate-400 mb-3" />
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Overseas Recruitment Destinations
-          </h1>
-          <p className="text-slate-400 text-sm">
-            Discover foreign employment opportunities across key Middle Eastern and international destinations.
-          </p>
+    <div className={styles.page}>
+      <header className={styles.hero}>
+        <div className="container-padded">
+          <Breadcrumbs items={[{ label: "Countries" }]} className={styles.breadcrumbs} />
+          <div className={styles.directoryHero}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>Global Recruitment Destinations</p>
+              <h1>Explore opportunities<br /><span>around the world.</span></h1>
+              <p>Discover A-One’s international recruitment markets. Explore the destinations, get to know the recruitment fields, and find your way to the sample roles.</p>
+            </div>
+            <div className={styles.heroGlobe} aria-hidden="true"><Globe2 strokeWidth={.6} /><span>Sri Lankan talent. International horizons.</span></div>
+          </div>
+          <p className={styles.heroFootnote}>{countries.length} confirmed recruitment destinations<span>For candidates & international employers</span></p>
         </div>
-      </div>
-
-      <div className="container-padded py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {countries.map((country) => {
-            const jobCount = jobs.filter(
-              (job) => job.status === "active" && job.country === country.slug
-            ).length;
-            return (
-            <article
-              key={country.slug}
-              className="bg-white rounded-xl border border-slate-200 p-6 flex flex-col hover:border-[#0f1f3d] hover:shadow-md transition-all duration-200"
-            >
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <span className="text-4xl">{country.flag}</span>
-                <span className="badge badge-new">{country.region}</span>
-              </div>
-
-              <h2 className="text-xl font-bold text-[#0f1f3d] mb-2">{country.name}</h2>
-              <p className="text-sm text-slate-600 leading-relaxed mb-4 flex-1">
-                {country.summary}
-              </p>
-
-              <div className="border-t border-slate-100 pt-4 mb-4">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                  Popular Categories
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {country.popularCategories.map((cat) => (
-                    <span
-                      key={cat}
-                      className="text-xs bg-slate-100 text-slate-700 rounded-md px-2.5 py-1"
-                    >
-                      {cat}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pt-2">
-                <span className="text-sm font-semibold text-teal-700 flex items-center gap-1.5">
-                  <Briefcase size={14} />
-                  {jobCount > 0
-                    ? `${jobCount} Sample ${jobCount === 1 ? "Job" : "Jobs"}`
-                    : "Recruiting market"}
-                </span>
-                <Link
-                  href={`/countries/${country.slug}`}
-                  className="btn btn-secondary btn-sm"
-                  aria-label={`View jobs in ${country.name}`}
-                >
-                  Explore Jobs
-                  <ArrowRight size={14} />
-                </Link>
-              </div>
-            </article>
-            );
-          })}
-        </div>
+      </header>
+      <div className={`container-padded ${styles.content}`}>
+        <div className={styles.notice}><Info size={20} aria-hidden="true" /><p><strong>Recruitment markets, not a guarantee of live vacancies.</strong> Listings shown here are fictional development samples. Counts include expired examples and do not represent currently open or verified job offers.</p></div>
+        <CountriesDirectory countries={countries} cards={countries.map((country) => <CountryCard key={country.slug} country={country} sampleCount={countrySampleJobs(jobs, country.slug).length} />)} />
+        <section className={styles.employer} aria-labelledby="directory-employer-heading">
+          <div><p className={styles.eyebrow}>For international employers</p><h2 id="directory-employer-heading">Looking for Sri Lankan talent?</h2><p>Explore A-One’s employer services and share your workforce requirements with the team.</p></div>
+          <div className={styles.ctaActions}><Link href="/employers" className={styles.primary}>Explore employer services <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/employers/request-manpower" className={styles.lightLink}>Request Manpower <ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+        </section>
       </div>
     </div>
   );

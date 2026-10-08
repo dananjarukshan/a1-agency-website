@@ -1,139 +1,108 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { CheckCircle } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Compass, Info } from "lucide-react";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
-import JobCard from "@/components/jobs/JobCard";
-import EmptyState from "@/components/common/EmptyState";
-import { countries, jobs } from "@/data";
+import CountryCard from "@/components/countries/CountryCard";
+import CountryVisual from "@/components/countries/CountryVisual";
+import CountryJobListings from "@/components/countries/CountryJobListings";
+import { countries, jobs, jobCategories } from "@/data";
+import { countryCategoryHref, countrySampleJobs, relatedCountries } from "@/lib/country-presentation";
 import { siteConfig } from "@/config/site";
+import { featuredCountryImageAlt } from "@/config/featured-countries";
+import styles from "@/components/countries/Countries.module.css";
 
-interface Props {
-  params: Promise<{ slug: string }>;
-}
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  return countries.map((c) => ({ slug: c.slug }));
+  return countries.map((country) => ({ slug: country.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const country = countries.find((c) => c.slug === slug);
+  const country = countries.find((item) => item.slug === slug);
   if (!country) return {};
+  const title = `${country.name} Recruitment Destination | ${siteConfig.name}`;
+  const description = `Explore ${country.name}, one of A-One's recruitment markets in ${country.region}. Review recruitment fields and fictional sample listings, where available.`;
   return {
-    title: `Jobs in ${country.name} for Sri Lankans | ${siteConfig.shortName}`,
-    description: `Browse sample overseas job vacancies in ${country.name} for Sri Lankan workers. Explore vacancy presentation, salaries, requirements, and application UX.`,
+    title: { absolute: title }, description,
     alternates: { canonical: `/countries/${country.slug}` },
+    openGraph: {
+      title, description, url: `${siteConfig.url}/countries/${country.slug}`,
+      ...(featuredCountryImageAlt[country.slug] ? { images: [{ url: country.image, alt: featuredCountryImageAlt[country.slug] }] } : {}),
+    },
   };
 }
 
 export default async function CountryPage({ params }: Props) {
   const { slug } = await params;
-  const country = countries.find((c) => c.slug === slug);
-
+  const country = countries.find((item) => item.slug === slug);
   if (!country) notFound();
-
-  const countryJobs = jobs.filter((j) => j.country === country.slug && j.status === "active");
+  const countryJobs = countrySampleJobs(jobs, country.slug);
+  const related = relatedCountries(countries, country);
+  const jobsHref = `/jobs?country=${country.slug}`;
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-16">
-      <div className="bg-brand-black">
-        <div className="container-padded py-10">
-          <Breadcrumbs
-            items={[
-              { label: "Countries", href: "/countries" },
-              { label: country.name },
-            ]}
-            className="text-slate-400 mb-4"
-          />
-          <div className="flex items-center gap-4 mb-3">
-            <span className="text-5xl">{country.flag}</span>
-            <div>
-              <h1 className="text-3xl font-bold text-white leading-tight">
-                Jobs in {country.name}
-              </h1>
-              <p className="text-slate-400 text-sm mt-1">
-                Foreign employment opportunities for Sri Lankan workers in {country.name}.
-              </p>
+    <div className={styles.page}>
+      <header className={styles.hero}>
+        <div className="container-padded">
+          <Breadcrumbs items={[{ label: "Countries", href: "/countries" }, { label: country.name }]} className={styles.breadcrumbs} />
+          <div className={styles.detailHero}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>Explore a recruitment destination</p>
+              <p className={styles.countryIdentity}><span aria-hidden="true">{country.flag}</span>{country.region}</p>
+              <h1>{country.name}</h1>
+              <p>Explore this A-One recruitment market, its recruitment fields and the sample roles listed for {country.shortName ?? country.name}.</p>
+              <div className={styles.heroActions}><Link href={jobsHref} className={styles.primary}>Browse country jobs <ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only"> in {country.name}</span></Link><span>{countryJobs.length ? `${countryJobs.length} sample ${countryJobs.length === 1 ? "listing" : "listings"} · not live offers` : "Recruitment market · no sample listings"}</span></div>
             </div>
+            <CountryVisual country={country} hero />
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="container-padded py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Summary */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6">
-            <h2 className="text-lg font-bold text-[#0f1f3d] mb-3">
-              Employment Overview – {country.name}
-            </h2>
-            <p className="text-sm text-slate-600 leading-relaxed mb-6">
-              {country.summary}
-            </p>
-            <h3 className="text-sm font-bold text-[#0f1f3d] mb-3">
-              Illustrative Job Categories for {country.name}:
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {country.popularCategories.map((cat) => (
-                <span
-                  key={cat}
-                  className="bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg"
-                >
-                  {cat}
-                </span>
-              ))}
+      <div className={`container-padded ${styles.content}`}>
+        <div className={styles.notice}><Info size={20} aria-hidden="true" /><p><strong>Explore with clarity.</strong> A recruitment market does not guarantee a current vacancy. All job listings here are fictional development samples; salaries in LKR and age criteria are illustrative.</p></div>
+        <div className={styles.overviewLayout}>
+          <section className={styles.overview} aria-labelledby="country-overview-heading">
+            <p className={styles.eyebrow}>Get to know the destination</p><h2 id="country-overview-heading">Recruitment in {country.shortName ?? country.name}</h2>
+            <p className={styles.bodyCopy}>{country.summary}</p>
+            <div className={styles.fields}>
+              <h3>Recruitment fields</h3><p>These fields describe the market. They do not indicate currently open vacancies.</p>
+              <ul>{country.popularCategories.map((label) => {
+                const href = countryCategoryHref(label, jobCategories);
+                return <li key={label}>{href ? <Link href={href}>{label}<ArrowUpRight size={15} aria-hidden="true" /></Link> : <span>{label}</span>}</li>;
+              })}</ul>
             </div>
-          </div>
-
-          {/* Quick info */}
-          <div className="bg-white rounded-xl border border-slate-200 p-6">
-            <h2 className="text-base font-bold text-[#0f1f3d] mb-4">Recruitment Info</h2>
-            <ul className="space-y-3 text-sm text-slate-600">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle size={16} className="text-teal-600 mt-0.5 flex-shrink-0" />
-                <span>Regulatory steps confirmed for each live role</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle size={16} className="text-teal-600 mt-0.5 flex-shrink-0" />
-                <span>Benefits and conditions shown separately for every published role</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle size={16} className="text-teal-600 mt-0.5 flex-shrink-0" />
-                <span>Country-specific visa and legal facts added only after verification</span>
-              </li>
-            </ul>
-            <div className="mt-6 pt-4 border-t border-slate-100">
-              <Link
-                href={`/jobs?country=${country.slug}`}
-                className="btn btn-primary w-full justify-center text-sm"
-              >
-                Filter All {country.name} Jobs
-              </Link>
-            </div>
-          </div>
+          </section>
+          <aside className={styles.guidance} aria-labelledby="guidance-heading">
+            <Compass size={28} strokeWidth={1.3} aria-hidden="true" /><p className={styles.eyebrow}>Plan your next step</p><h2 id="guidance-heading">Every role has its own requirements.</h2>
+            <p>Eligibility, documentation, visa arrangements and employment conditions depend on the specific role and verified official requirements. Confirm the details with A-One before making plans.</p>
+            <Link href="/how-it-works" className={styles.textLink}>How recruitment works <ArrowUpRight size={17} aria-hidden="true" /></Link><Link href="/contact" className={styles.textLink}>Contact A-One <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          </aside>
         </div>
 
-        {/* Jobs list */}
-        <div>
-          <h2 className="text-xl font-bold text-[#0f1f3d] mb-6">
-            Sample Vacancies in {country.name} ({countryJobs.length})
-          </h2>
+        <section className={styles.vacancies} aria-labelledby="country-jobs-heading">
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore the sample roles</p><h2 id="country-jobs-heading">Sample listings in {country.shortName ?? country.name}</h2></div><span className={styles.listingCount}>{countryJobs.length} sample {countryJobs.length === 1 ? "listing" : "listings"}</span></div>
+          {countryJobs.length > 0 ? <>
+            <p className={styles.sectionIntro}>Fictional listings for the website preview. Expired examples remain visible and are labelled Closed; closed roles cannot accept applications.</p>
+            <CountryJobListings jobs={countryJobs} />
+            <div className={styles.listingActions}><Link href={jobsHref} className={styles.primary}>Browse all jobs in {country.shortName ?? country.name} <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/countries" className={styles.textLink}>Explore other countries <ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+          </> : <div className={styles.empty}>
+            <BriefcaseBusiness size={36} strokeWidth={1.3} aria-hidden="true" /><h3>No sample vacancies listed yet</h3>
+            <p>{country.name} is an A-One recruitment market. There are currently no demonstration job listings for this country. Contact the team to discuss current recruitment information.</p>
+            <div className={styles.emptyActions}><Link href="/jobs" className={styles.primary}>Browse All Jobs <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/countries" className={styles.textLink}>Other Countries</Link><Link href="/contact" className={styles.textLink}>Contact A-One</Link></div>
+          </div>}
+        </section>
 
-          {countryJobs.length === 0 ? (
-            <EmptyState
-              title={`No Active Jobs in ${country.name}`}
-              description="There are no sample vacancies for this country yet. Browse the other demonstration roles or connect live job data later."
-              actionLabel="View All Jobs"
-              actionHref="/jobs"
-            />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {countryJobs.map((job) => (
-                <JobCard key={job.id} job={job} />
-              ))}
-            </div>
-          )}
-        </div>
+        <section className={styles.employer} aria-labelledby="country-employer-heading">
+          <div><p className={styles.eyebrow}>For international employers</p><h2 id="country-employer-heading">Build your team with Sri Lankan talent.</h2><p>Discover A-One’s employer services and share the roles, skills and workforce requirements you would like to discuss.</p></div>
+          <div className={styles.ctaActions}><Link href="/employers" className={styles.primary}>For Employers <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/employers/request-manpower" className={styles.lightLink}>Request Manpower <ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+        </section>
+
+        <section className={styles.related} aria-labelledby="related-destinations-heading">
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Continue your journey</p><h2 id="related-destinations-heading">Explore other destinations</h2></div><Link href="/countries" className={styles.textLink}>All countries <ArrowUpRight size={17} aria-hidden="true" /></Link></div>
+          <div className={styles.countryGrid}>{related.map((item) => <CountryCard key={item.slug} country={item} sampleCount={countrySampleJobs(jobs, item.slug).length} />)}</div>
+        </section>
       </div>
     </div>
   );
