@@ -1,17 +1,9 @@
 import Link from "next/link";
-import {
-  ArrowRight, Car, Coffee, Cog, HardHat, HeartPulse, Hotel,
-  House, Landmark, Scissors, Shirt, Sparkles, Sprout, Users,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { recruitmentFields } from "@/data";
+import { CategoryIcon } from "@/lib/category-icons";
 import JobCategoryGrid from "./JobCategoryGrid";
 import styles from "./JobCategories.module.css";
-
-const iconMap: Record<string, LucideIcon> = {
-  Car, Coffee, Cog, HardHat, HeartPulse, Hotel, House,
-  Landmark, Scissors, Shirt, Sparkles, Sprout, Users,
-};
 
 export default function JobCategories() {
   return (
@@ -32,7 +24,6 @@ export default function JobCategories() {
 
         <JobCategoryGrid>
           {recruitmentFields.map((category) => {
-            const Icon = iconMap[category.icon] ?? Users;
             return (
               <li key={category.slug}>
                 <Link
@@ -41,7 +32,7 @@ export default function JobCategories() {
                   aria-label={`Explore ${category.name} opportunities`}
                 >
                   <span className={styles.icon}>
-                    <Icon size={22} strokeWidth={1.6} aria-hidden="true" />
+                    <CategoryIcon name={category.icon} size={22} strokeWidth={1.6} aria-hidden="true" />
                   </span>
                   <div className={styles.tileBody}>
                     <h3 className={styles.title}>{category.name}</h3>

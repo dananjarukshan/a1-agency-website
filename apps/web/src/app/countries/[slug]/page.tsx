@@ -5,7 +5,7 @@ import { ArrowUpRight, BriefcaseBusiness, Compass, Info } from "lucide-react";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import CountryCard from "@/components/countries/CountryCard";
 import CountryVisual from "@/components/countries/CountryVisual";
-import CountryJobListings from "@/components/countries/CountryJobListings";
+import SampleJobListings from "@/components/jobs/SampleJobListings";
 import { countries, jobs, jobCategories } from "@/data";
 import { countryCategoryHref, countrySampleJobs, relatedCountries } from "@/lib/country-presentation";
 import { siteConfig } from "@/config/site";
@@ -85,7 +85,7 @@ export default async function CountryPage({ params }: Props) {
           <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore the sample roles</p><h2 id="country-jobs-heading">Sample listings in {country.shortName ?? country.name}</h2></div><span className={styles.listingCount}>{countryJobs.length} sample {countryJobs.length === 1 ? "listing" : "listings"}</span></div>
           {countryJobs.length > 0 ? <>
             <p className={styles.sectionIntro}>Fictional listings for the website preview. Expired examples remain visible and are labelled Closed; closed roles cannot accept applications.</p>
-            <CountryJobListings jobs={countryJobs} />
+            <SampleJobListings jobs={countryJobs} className={styles.jobGrid} />
             <div className={styles.listingActions}><Link href={jobsHref} className={styles.primary}>Browse all jobs in {country.shortName ?? country.name} <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/countries" className={styles.textLink}>Explore other countries <ArrowUpRight size={17} aria-hidden="true" /></Link></div>
           </> : <div className={styles.empty}>
             <BriefcaseBusiness size={36} strokeWidth={1.3} aria-hidden="true" /><h3>No sample vacancies listed yet</h3>
