@@ -3,11 +3,11 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import Link from "next/link";
 import { ChevronRight, Minus, Plus } from "lucide-react";
-import { faqs } from "@/data";
+import { homepageFaqs } from "@/data/faqs";
 import styles from "./FAQPreview.module.css";
 
 export default function FAQPreview() {
-  const preview = faqs.slice(0, 5);
+  const preview = homepageFaqs;
 
   return (
     <section className={styles.section} aria-labelledby="faq-preview-heading">
